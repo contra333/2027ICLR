@@ -7,6 +7,7 @@
 ## Reporting rules
 
 - Separate confirmed results, interpretation, and next hypotheses.
+- Before interpreting evaluator outputs or naming metrics, read `reports/METRIC_DEFINITIONS.md` and follow its score direction and naming rules.
 - Do not invent missing metrics or smooth over failed runs.
 - State exact files read for any result summary.
 - When writing paper-facing text, preserve the source boundary between NeurIPS results, ICLR hypotheses, external-paper claims, and new experiment results.

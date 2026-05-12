@@ -25,6 +25,7 @@ Neural Collapse Is Not One Geometry: Optimizer-Dependent Collapse Regimes and Th
 - `AGENTS.md`: root AI operating rules.
 - `소스/INDEX.md`: source inventory and evidence boundaries.
 - `ops/`: multi-server Git, server run, and result-sync operating instructions.
+- `reports/METRIC_DEFINITIONS.md`: metric contract for server evaluators, Codex CLI, and GPT-based analysis.
 
 ## Evidence boundaries to preserve
 
@@ -55,7 +56,7 @@ Do not merge these into one unsupported claim. The downstream detector link need
 ## Current repo status
 
 - This workspace is currently a research operations and source context repo.
-- Git has been initialized locally on branch `main`; no `origin` remote is configured yet.
+- Git has been initialized locally on branch `main`, with `origin` set to `https://github.com/contra333/2027ICLR.git`.
 - Real GPU training code may live on a server and later be mirrored or imported into `code/`.
 - The intended execution pattern is local planning/analysis plus GPU execution on shared servers such as `101`, `175`, and `138`.
 - All servers should use the same private Git remote when available. Git is for code/config/docs/manifests; large raw outputs and checkpoints are copied outside Git tracking.
@@ -75,7 +76,8 @@ Do not merge these into one unsupported claim. The downstream detector link need
 
 - Add or mirror the first minimal experiment code into `code/`.
 - Define baseline configs under `configs/` before running server jobs.
+- Use `reports/METRIC_DEFINITIONS.md` before implementing or interpreting evaluator outputs.
 - For each server run, copy back raw outputs and write a `results/manifests/*.json` file.
-- Add a private Git remote named `origin` once the remote URL is available, then clone the repo on `101`, `175`, and `138`.
+- Clone the GitHub repo on `101`, `175`, and `138` before server-side experiment implementation.
 - Use `ops/MULTI_SERVER_GIT_WORKFLOW.md`, `ops/SERVER_RUN_TEMPLATE.md`, and `ops/RESULT_SYNC_GUIDE.md` when preparing the first server run.
 - Keep `AI_CONTEXT.md` updated after major milestones so new Codex sessions can restart cheaply.
