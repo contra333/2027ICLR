@@ -1,0 +1,42 @@
+{
+  "source_id": "arxiv-2505.18032v1",
+  "title": "Mahalanobis++: Improving OOD Detection via Feature Normalization",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "2505.18032v1",
+  "original_path": "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Mahalanobis++_ Improving OOD Detection via Feature Normalization (1).pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "7dab53dc38648b51dc2dca757fbb85697c9f3ed83c296f4aa8af67f20c7822c6"
+  },
+  "pdf_pages": 34,
+  "derived_files": [
+    "소스/ai_readable/arxiv-2505.18032v1/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-2505.18032v1/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-2505.18032v1/AI_README.md",
+    "소스/ai_readable/arxiv-2505.18032v1/alphaxiv_overview.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Mahalanobis++_ Improving OOD Detection via Feature Normalization (1).pdf",
+      "소스/ai_readable/arxiv-2505.18032v1/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-2505.18032v1/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-2505.18032v1/AI_README.md"
+    ],
+    "secondary": [
+      "소스/ai_readable/arxiv-2505.18032v1/alphaxiv_overview.md"
+    ]
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "saved",
+      "file": "소스/ai_readable/arxiv-2505.18032v1/alphaxiv_overview.md"
+    }
+  ],
+  "unsupported_boundary": "Use as evidence for post-hoc feature normalization improving Mahalanobis OOD under violated feature assumptions, not as direct optimizer-induced Neural Collapse evidence.",
+  "created_at": "2026-05-12T20:50:45+09:00",
+  "updated_at": "2026-05-12T20:52:51+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place; alphaXiv files are navigation aids only."
+}

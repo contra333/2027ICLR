@@ -25,7 +25,7 @@ Neural Collapse Is Not One Geometry: Optimizer-Dependent Collapse Regimes and Th
 - `AGENTS.md`: root AI operating rules.
 - `소스/INDEX.md`: source inventory and evidence boundaries.
 - `ops/`: multi-server Git, server run, and result-sync operating instructions.
-- `reports/METRIC_DEFINITIONS.md`: metric contract for server evaluators, Codex CLI, and GPT-based analysis.
+- `reports/METRIC_DEFINITIONS.md`: metric contract for server evaluators, Codex CLI, and GPT-based analysis; it uses revised NC names such as `nc0_width_norm`, `nc3_self_duality`, `nc4_agreement`, and `inter_dist_l2` to avoid legacy-name ambiguity.
 
 ## Evidence boundaries to preserve
 
@@ -77,6 +77,7 @@ Do not merge these into one unsupported claim. The downstream detector link need
 - Add or mirror the first minimal experiment code into `code/`.
 - Define baseline configs under `configs/` before running server jobs.
 - Use `reports/METRIC_DEFINITIONS.md` before implementing or interpreting evaluator outputs.
+- New evaluator code should emit revised metric names instead of legacy `nc0`, `nc3`, `nc4`, or `inter_dist` names.
 - For each server run, copy back raw outputs and write a `results/manifests/*.json` file.
 - Clone the GitHub repo on `101`, `175`, and `138` before server-side experiment implementation.
 - Use `ops/MULTI_SERVER_GIT_WORKFLOW.md`, `ops/SERVER_RUN_TEMPLATE.md`, and `ops/RESULT_SYNC_GUIDE.md` when preparing the first server run.
