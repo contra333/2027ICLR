@@ -1,0 +1,4 @@
+# Python packages needed by the Milestone 1A smoke pipeline.
+# Install torch/torchvision with the CUDA build that matches the server first.
+numpy
+PyYAML
