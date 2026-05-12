@@ -68,15 +68,18 @@ The `adam_coupled_decoupled` implementation has endpoint tests:
 - `coupled_ratio=0.0` matches PyTorch AdamW one-step behavior.
 - `coupled_ratio=1.0` matches PyTorch Adam one-step behavior.
 
+For full training interpretation, see `reports/OPTIMIZER_ENDPOINT_SEMANTICS_2026-05-13.md`. The interpolation endpoints are AdamW-style and Adam-style endpoints of the custom controlled optimizer, not guaranteed bitwise-identical full training clones of PyTorch `AdamW` and `Adam`.
+
 ## Risks Or Missing Evidence
 
 - These are 2 epoch smoke runs, not paper evidence.
 - No multi-seed or 200 epoch matched-protocol sweep has been run.
 - The M1B `101` runs were executed from a dirty working tree before the optimizer endpoint implementation was committed; manifests record this explicitly.
+- PyTorch `AdamW`/`Adam` and custom `adam_coupled_decoupled` endpoints are semantically matched at the endpoint update level, but full training trajectory equality is not claimed.
 - Checkpoints and cache `.pt` files are preserved in `/home/ghjin/iclr2027_runs/<run_id>/` and are not Git-tracked.
 
 ## Next Actions
 
-- Commit and push M1A/M1B code, configs, task notes, report, and run manifests.
+- M1A/M1B code, configs, task notes, report, and run manifests have been pushed to `main`.
 - Prepare matched-protocol 200 epoch configs only after deciding the first sweep scope and server allocation.
 - Continue to separate confirmed metrics, interpretation, and ICLR hypotheses in future reports.

@@ -118,6 +118,12 @@ Registered M1B manifests:
 
 These are smoke validations only. Their 2 epoch metrics confirm the pipeline and optimizer endpoint plumbing, not paper-level evidence.
 
+Endpoint interpretation note:
+
+- `reports/OPTIMIZER_ENDPOINT_SEMANTICS_2026-05-13.md` records the policy for Adam/AdamW versus `adam_coupled_decoupled` endpoints.
+- Use the custom `adam_coupled_decoupled` implementation as the controlled interpolation axis.
+- Treat `coupled_ratio=0.0` as AdamW-style and `coupled_ratio=1.0` as Adam-style, but do not claim full training trajectories are bitwise-identical to PyTorch `AdamW` or `Adam`.
+
 ## Known risks
 
 - DDU alone is not enough to represent all feature-based OOD behavior; include Mahalanobis, kNN, tied/diagonal/shrinkage GMM, and feature normalization controls.
@@ -125,11 +131,13 @@ These are smoke validations only. Their 2 epoch metrics confirm the pipeline and
 - Results from SN/mod DDU architectures can be confounded with optimizer effects.
 - ViT results may be noisier or regime-dependent; CNN controlled evidence should carry the main claim.
 - Pretraining may mask optimizer-induced geometry shifts, which should be framed as a regime finding rather than a failure.
+- Optimizer endpoint interpretation can be confused: PyTorch `AdamW`/`Adam` are baseline anchors, while `adam_coupled_decoupled` endpoints are controlled interpolation endpoints. See `reports/OPTIMIZER_ENDPOINT_SEMANTICS_2026-05-13.md`.
 
 ## Next actions
 
-- Commit and push the M1A/M1B smoke code, configs, task notes, reports, and manifests to `main`.
+- M1A/M1B smoke code, configs, task notes, reports, and manifests have been pushed to `main`.
 - Treat the current M1 smoke metrics as pipeline validation only; do not interpret them as ICLR evidence.
+- Preserve the optimizer endpoint semantics policy before designing the first 200 epoch sweep.
 - Before any 200 epoch sweep, prepare matched-protocol configs and decide the first optimizer set and server allocation.
 - Keep using `reports/METRIC_DEFINITIONS.md` before interpreting evaluator outputs.
 - Keep emitting revised metric names instead of legacy `nc0`, `nc3`, `nc4`, or `inter_dist` names.
