@@ -1,0 +1,67 @@
+{
+  "run_id": "20260512_2130_101_cifar10_resnet18_adamw_seed0",
+  "server_name": "101",
+  "server_path": "~/iclr2027_runs/20260512_2130_101_cifar10_resnet18_adamw_seed0",
+  "local_import_path": "results/raw/20260512_2130_101_cifar10_resnet18_adamw_seed0",
+  "git_remote": "origin",
+  "git_branch": "exp/cifar10-resnet18-adamw",
+  "git_commit": "<commit-sha>",
+  "code_commit_or_snapshot": "<commit-sha-or-snapshot-id>",
+  "config_path": "configs/<experiment-config>.yaml",
+  "config_hash": "<sha256>",
+  "dataset": "cifar10",
+  "ood_datasets": [
+    "cifar100",
+    "svhn",
+    "tiny-imagenet"
+  ],
+  "model": "resnet18",
+  "optimizer": "adamw",
+  "seed": "0",
+  "detectors": [
+    "msp",
+    "energy",
+    "mahalanobis",
+    "knn",
+    "shrinkage_gmm"
+  ],
+  "geometry_metrics": [
+    "nc0",
+    "nc1",
+    "nc2",
+    "nc3",
+    "within_var",
+    "inter_dist",
+    "feature_norm",
+    "covariance_eigenspectrum"
+  ],
+  "run_command": "python train.py --config configs/<experiment-config>.yaml",
+  "metrics_files": [
+    "results/raw/20260512_2130_101_cifar10_resnet18_adamw_seed0/metrics.json"
+  ],
+  "log_files": [
+    "results/raw/20260512_2130_101_cifar10_resnet18_adamw_seed0/run.log"
+  ],
+  "config_snapshot_files": [
+    "results/raw/20260512_2130_101_cifar10_resnet18_adamw_seed0/config_snapshot.yaml",
+    "results/raw/20260512_2130_101_cifar10_resnet18_adamw_seed0/config.sha256"
+  ],
+  "checkpoint_files": [],
+  "checkpoint_copy_status": "exists_on_server_not_copied",
+  "copied_files": [
+    "git_commit.txt",
+    "config.sha256",
+    "config_snapshot.yaml",
+    "command.txt",
+    "run.log",
+    "metrics.json"
+  ],
+  "copied_at": "2026-05-12T21:40:00+09:00",
+  "verification_status": {
+    "raw_files_copied": true,
+    "metrics_readable": true,
+    "checkpoints_present": false,
+    "manifest_complete": true,
+    "notes": "Example only; replace placeholder values before using for a real run."
+  }
+}

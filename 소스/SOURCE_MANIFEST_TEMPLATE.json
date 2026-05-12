@@ -1,0 +1,20 @@
+{
+  "source_id": "",
+  "title": "",
+  "source_type": "",
+  "original_path": "",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": ""
+  },
+  "derived_files": [],
+  "evidence_tier": {
+    "primary": [],
+    "project_interpretation": [],
+    "secondary": []
+  },
+  "unsupported_boundary": "",
+  "created_at": "",
+  "updated_at": "",
+  "notes": ""
+}

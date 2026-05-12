@@ -1,0 +1,58 @@
+# Python and local tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Experiment outputs: keep manifests and small curated summaries in Git, not raw bulk data.
+results/raw/**
+!results/raw/.gitkeep
+results/tmp/**
+!results/tmp/.gitkeep
+results/checkpoints/**
+!results/checkpoints/.gitkeep
+
+# Heavy ML artifacts anywhere in the repo
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.tar
+*.tar.gz
+*.zip
+
+# Server/log bulk artifacts
+*.out
+*.err
+slurm-*.out
+wandb/
+mlruns/
+runs/
+outputs/
+lightning_logs/
+
