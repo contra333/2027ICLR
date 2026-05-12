@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2027 ICLR Project Overview</title>
+  <style>
+    :root {
+      --ink: #18202a;
+      --muted: #647084;
+      --line: #dce2ea;
+      --soft: #f6f8fb;
+      --panel: #ffffff;
+      --accent: #2364aa;
+      --accent-soft: #e7f0fb;
+      --warn: #9a5b00;
+      --warn-soft: #fff6df;
+      --ok: #136f43;
+      --ok-soft: #e5f6ee;
+      --shadow: 0 8px 26px rgba(30, 42, 60, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.58;
+      background: #eef2f7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: #132033;
+      color: #ffffff;
+      padding: 48px 28px 42px;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: #a9c7ee;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    header p {
+      max-width: 900px;
+      color: #d8e2f0;
+      font-size: 17px;
+      margin: 18px 0 0;
+    }
+
+    main {
+      padding: 28px 0 54px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      margin: 18px 0;
+      padding: 24px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin: 0 0 14px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 24px 0 10px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    code {
+      background: #eef3f8;
+      border: 1px solid #dce5ef;
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 0.95em;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfcfe;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      background: var(--accent-soft);
+      color: #174c82;
+      border: 1px solid #c8dbf1;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .notice {
+      border-left: 5px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 12px 14px;
+      border-radius: 6px;
+    }
+
+    .warning {
+      border-left: 5px solid var(--warn);
+      background: var(--warn-soft);
+      padding: 12px 14px;
+      border-radius: 6px;
+    }
+
+    .ok {
+      border-left: 5px solid var(--ok);
+      background: var(--ok-soft);
+      padding: 12px 14px;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      background: var(--soft);
+      font-weight: 700;
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 13px;
+      min-height: 114px;
+    }
+
+    .step strong {
+      display: block;
+      color: #0f4d88;
+      margin-bottom: 6px;
+    }
+
+    .tree {
+      background: #101721;
+      color: #dce7f5;
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 24px 0 40px;
+    }
+
+    @media (max-width: 900px) {
+      .grid.cols-3,
+      .grid.cols-2,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Local research operations map</div>
+      <h1>2027 ICLR 프로젝트 폴더 안내</h1>
+      <p>
+        이 HTML은 <code>C:\Users\User\Desktop\2027ICLR</code> 폴더를 처음 다시 열었을 때
+        “무엇이 어디에 있고, 어떤 순서로 쓰며, 지금 연구가 어디까지 와 있는지”를 빠르게 복구하기 위한 안내판이다.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="summary">
+      <h2>한눈에 보는 현재 상태</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>연구 질문</h3>
+          <p>
+            옵티마이저와 weight decay 결합 방식이 penultimate feature geometry / Neural Collapse regime을 어떻게 바꾸고,
+            그 변화가 Mahalanobis, DDU/GMM, kNN, NECO/NC 계열, ViM 같은 detector에 어떻게 다르게 읽히는가를 본다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>로컬 폴더의 역할</h3>
+          <p>
+            이 폴더는 연구 운영의 중심이다. 계획, 문헌 근거, config/code 준비, 서버 결과 수거, 분석, 보고서를 관리한다.
+            실제 GPU 학습은 주로 서버 <code>101</code>, <code>175</code>, <code>138</code>에서 돌리는 방향이다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>현재 구현 단계</h3>
+          <p>
+            레포 구조, AI 작업 규칙, 문헌 source package, multi-server Git workflow, result sync 규칙,
+            metric contract가 준비되어 있다. 실제 실험 코드는 아직 <code>code/</code>에 본격적으로 들어오지 않았다.
+          </p>
+        </div>
+      </div>
+      <div class="pill-row">
+        <span class="pill">main branch</span>
+        <span class="pill">origin: GitHub private repo</span>
+        <span class="pill">local planning + server GPU execution</span>
+        <span class="pill">raw 보존 + manifest 추적</span>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2>연구 방향</h2>
+      <p>
+        이 프로젝트의 목표는 “최신 OOD detector를 많이 돌렸다”가 아니다. 핵심은
+        <strong>optimizer가 만든 representation geometry regime을 detector family가 서로 다르게 읽는다</strong>는 점을
+        통제된 실험으로 보여주는 것이다.
+      </p>
+      <div class="notice">
+        <strong>현재 thesis:</strong>
+        optimizer improvement는 reliability에 대해 하나의 의미만 갖지 않는다. 어떤 optimizer는 logit confidence나 calibration에는 좋아 보이지만,
+        feature covariance, class mean, neighborhood, NC component를 읽는 detector에는 불리한 geometry를 만들 수 있다.
+      </div>
+
+      <h3>근거 경계</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>근거 축</th>
+            <th>쓸 수 있는 주장</th>
+            <th>주의할 점</th>
+            <th>먼저 볼 파일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NeurIPS 2026 prior</td>
+            <td>SAM이 accuracy/calibration/logit reliability를 유지하거나 개선하면서도 Mahalanobis/DDU를 악화시킬 수 있다는 prior 관찰.</td>
+            <td>새 ICLR claim으로 일반화하려면 새 controlled experiment가 필요하다.</td>
+            <td><a href="소스/neurips2026_paper_context.md">소스/neurips2026_paper_context.md</a></td>
+          </tr>
+          <tr>
+            <td>Optimizer / NC paper</td>
+            <td>optimizer choice와 coupled/decoupled weight decay가 Neural Collapse / representation geometry에 영향을 준다는 축.</td>
+            <td>이 논문만으로 Energy, Mahalanobis, kNN, DDU 결과를 직접 주장하면 안 된다.</td>
+            <td><a href="소스/GPT_PROJECT_SOURCE_GUIDE.md">소스/GPT_PROJECT_SOURCE_GUIDE.md</a></td>
+          </tr>
+          <tr>
+            <td>OpenOOD v1.5</td>
+            <td>OOD benchmark, metric convention, near/far OOD 평가 맥락.</td>
+            <td>우리 논문은 OpenOOD 전체 재현 논문이 아니다.</td>
+            <td><a href="소스/ai_readable/arxiv-2306.09301v5/AI_README.md">OpenOOD AI_README</a></td>
+          </tr>
+          <tr>
+            <td>NECO</td>
+            <td>Neural Collapse geometry가 post-hoc OOD detector로 쓰일 수 있다는 근거.</td>
+            <td>optimizer가 NECO 성능을 바꾼다는 주장의 직접 근거는 아니다.</td>
+            <td><a href="소스/ai_readable/arxiv-2310.06823v3/AI_README.md">NECO AI_README</a></td>
+          </tr>
+          <tr>
+            <td>Mahalanobis++</td>
+            <td>L2 feature normalization이 Mahalanobis-style OOD에서 feature norm/covariance confound를 줄이는 control이 될 수 있음.</td>
+            <td><code>mahalanobis_l2</code>는 full reproduction이 아니라 Mahalanobis++-motivated control로 기록한다.</td>
+            <td><a href="소스/ai_readable/arxiv-2505.18032v1/AI_README.md">Mahalanobis++ AI_README</a></td>
+          </tr>
+          <tr>
+            <td>ViM</td>
+            <td>feature residual과 logit을 결합한 hybrid OOD scoring 근거.</td>
+            <td>native OOD score와 project ID-like score 방향을 분리해야 한다.</td>
+            <td><a href="소스/ai_readable/arxiv-2203.10807v1/AI_README.md">ViM AI_README</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="folders">
+      <h2>폴더 구조와 사용법</h2>
+      <div class="tree">2027ICLR/
+├─ AGENTS.md                  # AI 작업 규칙: 가장 먼저 읽는 부팅 규칙
+├─ AI_CONTEXT.md              # 현재 thesis, 상태, 위험, 다음 행동을 압축한 핫캐시
+├─ README.md                  # 사람용 프로젝트 소개
+├─ PROJECT_OVERVIEW.html      # 이 안내 문서
+├─ 소스/                      # 문헌, prior paper, source card, AI-readable 자료
+├─ code/                      # 실험 코드 또는 서버 코드 미러
+├─ configs/                   # 실험 config; config 변경은 연구 가정 변경
+├─ ops/                       # Git/server/result sync 운영 문서
+├─ reports/                   # 보고서, metric 정의, 논문 해석 초안
+├─ results/                   # 서버 결과 수거, processed table, figures, manifests
+├─ tasks/                     # 한 번짜리 작업 티켓
+└─ .agents/skills/            # 반복 작업용 AI skill</div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>위치</th>
+            <th>역할</th>
+            <th>사용 방식</th>
+            <th>먼저 볼 파일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>/</code></td>
+            <td>프로젝트 운영 루트</td>
+            <td>새 Codex 세션은 루트 규칙과 핫캐시로 시작한다.</td>
+            <td><a href="AGENTS.md">AGENTS.md</a>, <a href="AI_CONTEXT.md">AI_CONTEXT.md</a></td>
+          </tr>
+          <tr>
+            <td><code>소스/</code></td>
+            <td>문헌과 prior-paper 근거 저장소</td>
+            <td>원본 PDF를 보존하고, AI가 읽기 쉬운 card/manifest/page text를 파생물로 둔다.</td>
+            <td><a href="소스/AGENTS.md">소스/AGENTS.md</a>, <a href="소스/INDEX.md">소스/INDEX.md</a></td>
+          </tr>
+          <tr>
+            <td><code>code/</code></td>
+            <td>실험 코드 또는 서버 코드 미러</td>
+            <td>서버에서 짠 실험 코드를 Git으로 가져오거나, 로컬에서 작은 smoke test만 준비한다.</td>
+            <td><a href="code/AGENTS.md">code/AGENTS.md</a></td>
+          </tr>
+          <tr>
+            <td><code>configs/</code></td>
+            <td>실험 설정</td>
+            <td>dataset, model, optimizer, seed, schedule, detector 같은 연구 가정을 명시한다.</td>
+            <td><a href="configs/AGENTS.md">configs/AGENTS.md</a></td>
+          </tr>
+          <tr>
+            <td><code>ops/</code></td>
+            <td>서버/Git/결과 수거 운영</td>
+            <td>서버 clone, run ID, result copy, manifest 작성 절차를 확인한다.</td>
+            <td><a href="ops/MULTI_SERVER_GIT_WORKFLOW.md">MULTI_SERVER_GIT_WORKFLOW.md</a></td>
+          </tr>
+          <tr>
+            <td><code>reports/</code></td>
+            <td>보고와 해석</td>
+            <td>metric 정의를 먼저 확인하고 confirmed metric, interpretation, hypothesis를 분리한다.</td>
+            <td><a href="reports/AGENTS.md">reports/AGENTS.md</a>, <a href="reports/METRIC_DEFINITIONS.md">METRIC_DEFINITIONS.md</a></td>
+          </tr>
+          <tr>
+            <td><code>results/</code></td>
+            <td>서버 결과와 분석 산출물</td>
+            <td>raw는 보존하고, processed/figures는 파생물로 만들며, run마다 manifest를 둔다.</td>
+            <td><a href="results/AGENTS.md">results/AGENTS.md</a>, <a href="results/manifests/RUN_MANIFEST_TEMPLATE.json">RUN_MANIFEST_TEMPLATE.json</a></td>
+          </tr>
+          <tr>
+            <td><code>tasks/</code></td>
+            <td>지속 관리가 필요한 일회성 작업</td>
+            <td>성공 기준과 검증 방법이 필요한 작은 작업을 티켓화한다.</td>
+            <td><a href="tasks/TEMPLATE.md">tasks/TEMPLATE.md</a></td>
+          </tr>
+          <tr>
+            <td><code>.agents/skills/</code></td>
+            <td>반복 작업 매뉴얼</td>
+            <td>source ingest, server run prep, result import, experiment report, figure reproduction에 쓴다.</td>
+            <td><code>.agents/skills/*/SKILL.md</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="workflow">
+      <h2>기본 작업 흐름</h2>
+      <div class="flow">
+        <div class="step">
+          <strong>1. 로컬 계획</strong>
+          <span><code>AI_CONTEXT.md</code>, <code>소스/INDEX.md</code>, 관련 <code>AGENTS.md</code>를 읽고 목표를 좁힌다.</span>
+        </div>
+        <div class="step">
+          <strong>2. 코드/config 준비</strong>
+          <span><code>code/</code>와 <code>configs/</code>에 서버 실행 가능한 최소 단위를 만든다.</span>
+        </div>
+        <div class="step">
+          <strong>3. Git으로 서버 전달</strong>
+          <span>로컬 <code>main</code> 또는 <code>exp/&lt;short-name&gt;</code> branch를 push하고 서버에서 pull한다.</span>
+        </div>
+        <div class="step">
+          <strong>4. 서버 실행</strong>
+          <span>GPU 서버에서 run ID, config hash, commit, command, log를 함께 남긴다.</span>
+        </div>
+        <div class="step">
+          <strong>5. 로컬 분석</strong>
+          <span>metrics/logs를 <code>results/raw/</code>로 복사하고 manifest를 만든 뒤 <code>reports/</code>에서 해석한다.</span>
+        </div>
+      </div>
+
+      <h3>서버 run ID 규칙</h3>
+      <p>
+        서버 실행은 <code>YYYYMMDD_HHMM_&lt;server&gt;_&lt;dataset&gt;_&lt;model&gt;_&lt;optimizer&gt;_seed&lt;seed&gt;</code>
+        형식의 <code>run_id</code>를 가진다. 예: <code>20260512_2130_101_cifar10_resnet18_adamw_seed0</code>.
+      </p>
+
+      <h3>Git으로 관리하는 것과 하지 않는 것</h3>
+      <div class="grid cols-2">
+        <div class="ok">
+          <strong>Git에 넣는 것:</strong>
+          실험 코드, config, 문서, source index/manifest, run manifest, 작은 processed summary, figure script, 작은 최종 figure.
+        </div>
+        <div class="warning">
+          <strong>Git에서 제외하는 것:</strong>
+          raw server run folder, checkpoint, feature dump, large array, temporary log, dataset, local virtual environment.
+        </div>
+      </div>
+    </section>
+
+    <section id="metrics">
+      <h2>평가 metric 계약</h2>
+      <p>
+        학습된 checkpoint 하나를 평가할 때는 모든 post-hoc detector가 같은 cached logits/features에서 동작해야 한다.
+        OOD detector score는 프로젝트 전체에서 <strong>higher = ID-like</strong>, <strong>ID label = 1</strong>,
+        <strong>OOD label = 0</strong>으로 통일한다.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>범주</th>
+            <th>주요 output name</th>
+            <th>해석 규칙</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Classification</td>
+            <td><code>accuracy</code>, <code>nll</code></td>
+            <td>ID test 기준. accuracy는 높을수록, nll은 낮을수록 좋다.</td>
+          </tr>
+          <tr>
+            <td>Calibration</td>
+            <td><code>ece_15bin</code>, <code>temperature_scaled_ece_15bin</code></td>
+            <td>legacy <code>TCE</code> 대신 명확한 이름을 사용한다. temperature는 ID validation으로만 fit한다.</td>
+          </tr>
+          <tr>
+            <td>OOD aggregate</td>
+            <td><code>auroc</code>, <code>fpr95</code>, <code>aupr_in</code></td>
+            <td>aggregate는 보고용이다. OOD test score로 detector hyperparameter를 고르지 않는다.</td>
+          </tr>
+          <tr>
+            <td>Logit detectors</td>
+            <td><code>msp</code>, <code>maxlogit</code>, <code>energy_id_score</code>, <code>neg_entropy</code></td>
+            <td><code>energy_id_score</code>는 project convention에 맞춘 ID-like 방향이다.</td>
+          </tr>
+          <tr>
+            <td>Feature detectors</td>
+            <td><code>mahalanobis</code>, <code>mahalanobis_l2</code>, <code>knn</code>, <code>knn_l2</code>, <code>gmm_ddu_*</code></td>
+            <td><code>mahalanobis_l2</code>는 Mahalanobis++-motivated control이며, GMM/DDU variants는 분리해서 저장한다.</td>
+          </tr>
+          <tr>
+            <td>NC / hybrid</td>
+            <td><code>ncc_distance</code>, <code>ncc_accuracy</code>, <code>nc4_agreement</code>, <code>vim_id_score</code></td>
+            <td><code>ncc_accuracy</code>와 strict <code>nc4_agreement</code>를 섞지 않는다. <code>vim_native_ood_score</code>는 native diagnostic이다.</td>
+          </tr>
+          <tr>
+            <td>Geometry</td>
+            <td><code>nc0_width_norm</code>, <code>nc1</code>, <code>nc2_*_etf</code>, <code>nc3_self_duality</code>, <code>inter_dist_l2</code>, <code>inter_dist_sq</code></td>
+            <td>legacy <code>nc0</code>, <code>nc3</code>, <code>nc4</code>, <code>inter_dist</code> 이름 대신 revised names를 사용한다.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">
+        자세한 정의는 <a href="reports/METRIC_DEFINITIONS.md">reports/METRIC_DEFINITIONS.md</a>가 source of truth다.
+      </p>
+    </section>
+
+    <section id="current-files">
+      <h2>중요 파일 목록</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>프로젝트 시작점</h3>
+          <ul>
+            <li><a href="AGENTS.md">AGENTS.md</a>: AI agent 부팅 규칙과 금지사항.</li>
+            <li><a href="AI_CONTEXT.md">AI_CONTEXT.md</a>: 현재 thesis, 상태, 위험, 다음 행동.</li>
+            <li><a href="README.md">README.md</a>: 사람용 간단한 레포 소개.</li>
+            <li><a href="code/IMPLEMENTATION_CONTRACT.md">code/IMPLEMENTATION_CONTRACT.md</a>: 서버 학습/평가 코드 구현 계약.</li>
+            <li><a href="code/models/ARCHITECTURE_CONTRACT.md">code/models/ARCHITECTURE_CONTRACT.md</a>: 표준 ResNet/WRN architecture 정의.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>문헌/source</h3>
+          <ul>
+            <li><a href="소스/INDEX.md">소스/INDEX.md</a>: source inventory와 evidence boundary.</li>
+            <li><a href="소스/2027_ICLR_실험레포설계.md">소스/2027_ICLR_실험레포설계.md</a>: ICLR 실험 로드맵.</li>
+            <li><a href="소스/neurips2026_paper_context.md">소스/neurips2026_paper_context.md</a>: NeurIPS 2026 prior context.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>서버 운영</h3>
+          <ul>
+            <li><a href="ops/MULTI_SERVER_GIT_WORKFLOW.md">ops/MULTI_SERVER_GIT_WORKFLOW.md</a>: 로컬-서버 Git 흐름.</li>
+            <li><a href="ops/SERVER_CLONE_TO_FIRST_RUN.md">ops/SERVER_CLONE_TO_FIRST_RUN.md</a>: 서버 clone 이후 첫 smoke run까지의 절차.</li>
+            <li><a href="ops/SERVER_RUN_TEMPLATE.md">ops/SERVER_RUN_TEMPLATE.md</a>: 서버 실행 체크리스트.</li>
+            <li><a href="ops/RESULT_SYNC_GUIDE.md">ops/RESULT_SYNC_GUIDE.md</a>: 결과 복사 절차.</li>
+            <li><a href="ops/RUN_MANIFEST_RULES.md">ops/RUN_MANIFEST_RULES.md</a>: manifest 필수 필드.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>결과와 보고</h3>
+          <ul>
+            <li><a href="results/AGENTS.md">results/AGENTS.md</a>: raw/processed/figures/manifests 규칙.</li>
+            <li><a href="results/manifests/RUN_MANIFEST_TEMPLATE.json">results/manifests/RUN_MANIFEST_TEMPLATE.json</a>: run manifest 템플릿.</li>
+            <li><a href="reports/AGENTS.md">reports/AGENTS.md</a>: 보고서 작성 규칙.</li>
+            <li><a href="reports/METRIC_DEFINITIONS.md">reports/METRIC_DEFINITIONS.md</a>: metric contract.</li>
+            <li><a href="reports/ARCHITECTURE_REFERENCES.md">reports/ARCHITECTURE_REFERENCES.md</a>: 표준 architecture와 optimizer reference hierarchy.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="agent-start">
+      <h2>새 Codex/GPT 세션에서 읽는 순서</h2>
+      <ol>
+        <li>일반 방향 파악: <code>AGENTS.md</code> → <code>AI_CONTEXT.md</code> → <code>소스/INDEX.md</code>.</li>
+        <li>문헌 작업: <code>소스/AGENTS.md</code> → <code>소스/INDEX.md</code> → 관련 <code>AI_README.md</code> / <code>SOURCE_CARD.md</code>.</li>
+        <li>서버 구현 시작: <code>ops/SERVER_CLONE_TO_FIRST_RUN.md</code> → <code>code/IMPLEMENTATION_CONTRACT.md</code> → <code>code/models/ARCHITECTURE_CONTRACT.md</code> → <code>reports/METRIC_DEFINITIONS.md</code>.</li>
+        <li>코드 작업: <code>code/AGENTS.md</code> → 관련 contract/config → 최소 entrypoint.</li>
+        <li>config 작업: <code>configs/AGENTS.md</code>를 먼저 읽고, protocol과 seed/optimizer 변경을 명시한다.</li>
+        <li>결과 해석: <code>results/AGENTS.md</code> → 관련 <code>results/manifests/*.json</code> → metric file.</li>
+        <li>보고서 작성: <code>reports/AGENTS.md</code> → <code>reports/METRIC_DEFINITIONS.md</code> → confirmed/interpretation/hypothesis 분리.</li>
+        <li>서버 운영: <code>ops/AGENTS.md</code> → 필요한 <code>ops/*.md</code> 문서.</li>
+      </ol>
+      <div class="warning">
+        전체 PDF, 거대한 extracted text, 전체 result folder를 처음부터 모두 읽지 않는다.
+        index, manifest, source card, targeted search를 먼저 사용한다.
+      </div>
+    </section>
+
+    <section id="next">
+      <h2>현재 다음 행동</h2>
+      <ul>
+        <li><code>code/</code>에 첫 minimal experiment/evaluator 코드를 추가하거나 서버 코드 mirror를 가져온다.</li>
+        <li><code>configs/</code>에 CIFAR-10 ResNet-18 matched protocol부터 명확한 baseline config를 둔다.</li>
+        <li>서버 <code>101</code>, <code>175</code>, <code>138</code>에서 GitHub repo를 clone하고 branch/update cycle을 맞춘다.</li>
+        <li>first run부터 <code>run_id</code>, config hash, git commit, command, logs, metrics를 남긴다.</li>
+        <li>결과를 복사해 오면 <code>results/raw/&lt;run_id&gt;/</code>와 <code>results/manifests/&lt;run_id&gt;.json</code>을 함께 만든다.</li>
+        <li>큰 milestone 뒤에는 <code>AI_CONTEXT.md</code>를 갱신해 다음 AI 세션의 context 비용을 줄인다.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Generated on 2026-05-12 from current repository docs. For exact rules, follow the linked Markdown source files.
+  </footer>
+</body>
+</html>

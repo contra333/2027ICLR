@@ -26,6 +26,9 @@ Neural Collapse Is Not One Geometry: Optimizer-Dependent Collapse Regimes and Th
 - `소스/INDEX.md`: source inventory and evidence boundaries.
 - `ops/`: multi-server Git, server run, and result-sync operating instructions.
 - `reports/METRIC_DEFINITIONS.md`: metric contract for server evaluators, Codex CLI, and GPT-based analysis; it uses revised NC names such as `nc0_width_norm`, `nc3_self_duality`, `nc4_agreement`, and `inter_dist_l2` to avoid legacy-name ambiguity.
+- `ops/SERVER_CLONE_TO_FIRST_RUN.md`: server clone-to-smoke-run workflow for `101`, `175`, and `138`.
+- `code/IMPLEMENTATION_CONTRACT.md`: server code contract for standard training, optimizer semantics, and shared-cache evaluation.
+- `code/models/ARCHITECTURE_CONTRACT.md` and `reports/ARCHITECTURE_REFERENCES.md`: standard CIFAR ResNet/WRN definitions and implementation references.
 
 ## Evidence boundaries to preserve
 
@@ -80,5 +83,6 @@ Do not merge these into one unsupported claim. The downstream detector link need
 - New evaluator code should emit revised metric names instead of legacy `nc0`, `nc3`, `nc4`, or `inter_dist` names.
 - For each server run, copy back raw outputs and write a `results/manifests/*.json` file.
 - Clone the GitHub repo on `101`, `175`, and `138` before server-side experiment implementation.
-- Use `ops/MULTI_SERVER_GIT_WORKFLOW.md`, `ops/SERVER_RUN_TEMPLATE.md`, and `ops/RESULT_SYNC_GUIDE.md` when preparing the first server run.
+- Use `ops/SERVER_CLONE_TO_FIRST_RUN.md`, `code/IMPLEMENTATION_CONTRACT.md`, `code/models/ARCHITECTURE_CONTRACT.md`, and `reports/METRIC_DEFINITIONS.md` before writing the first server training/evaluation code.
+- Use `ops/MULTI_SERVER_GIT_WORKFLOW.md`, `ops/SERVER_RUN_TEMPLATE.md`, and `ops/RESULT_SYNC_GUIDE.md` when preparing or syncing server runs.
 - Keep `AI_CONTEXT.md` updated after major milestones so new Codex sessions can restart cheaply.

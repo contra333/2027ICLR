@@ -6,6 +6,7 @@
 
 ## Rules
 
+- Before implementing server training or evaluation code, read `code/IMPLEMENTATION_CONTRACT.md`, `code/models/ARCHITECTURE_CONTRACT.md`, and `reports/METRIC_DEFINITIONS.md`.
 - Keep code changes minimal and local to the requested task.
 - Do not silently change experiment assumptions such as dataset, model, optimizer, seed, weight decay, schedule, rho, or feature layer.
 - Preserve existing CLI/config names unless a change is necessary and documented.

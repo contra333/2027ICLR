@@ -15,9 +15,9 @@ GPU servers:
 Git remote:
 
 - Use a private Git remote named `origin`.
+- Current remote URL: `https://github.com/contra333/2027ICLR.git`
 - `main` is the stable shared branch.
 - Use `exp/<short-name>` branches when preparing or validating experiment batches.
-- The actual remote URL is not recorded here yet; add it when the user provides or creates the private repository.
 
 ## What goes through Git
 
@@ -53,7 +53,7 @@ git init -b main
 When a private remote exists:
 
 ```powershell
-git remote add origin <PRIVATE_GIT_URL>
+git remote add origin https://github.com/contra333/2027ICLR.git
 git status --short
 git add .
 git commit -m "Initialize ICLR 2027 research ops repo"
@@ -65,7 +65,7 @@ git push -u origin main
 On each server:
 
 ```bash
-git clone <PRIVATE_GIT_URL> 2027ICLR
+git clone https://github.com/contra333/2027ICLR.git 2027ICLR
 cd 2027ICLR
 git checkout main
 ```
@@ -108,4 +108,3 @@ Servers to local:
 2. Copy checkpoints only when needed.
 3. Add or update `results/manifests/<run_id>.json`.
 4. Commit only manifests and small summaries/figures.
-

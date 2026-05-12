@@ -6,6 +6,7 @@
 
 ## Rules
 
+- Before adding server training configs, read `ops/SERVER_CLONE_TO_FIRST_RUN.md`, `code/IMPLEMENTATION_CONTRACT.md`, and `code/models/ARCHITECTURE_CONTRACT.md`.
 - Do not change dataset, architecture, optimizer, seed, weight decay, schedule, rho, feature layer, OOD dataset, detector, or preprocessing unless the task asks for it.
 - When adding a config, make the experiment purpose clear in the filename or header.
 - Keep matched-protocol and tuned-protocol configs separate.

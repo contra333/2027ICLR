@@ -6,6 +6,7 @@
 
 ## Rules
 
+- Before first server-side implementation, read `ops/SERVER_CLONE_TO_FIRST_RUN.md`.
 - Prefer documenting commands before running them on shared servers.
 - Treat Git as the channel for code, configs, docs, small summaries, and manifests.
 - Do not put checkpoints, feature dumps, large logs, or raw run directories in Git.
@@ -23,4 +24,3 @@ When reporting server operations, include:
 - run ID,
 - output path,
 - what was copied back locally.
-
