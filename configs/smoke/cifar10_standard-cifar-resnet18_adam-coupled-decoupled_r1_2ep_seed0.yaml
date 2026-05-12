@@ -1,0 +1,83 @@
+run:
+  project: iclr2027
+  protocol: m1b_smoke_optimizer_endpoint
+  seed: 0
+  output_root: ${HOME}/iclr2027_runs
+
+data:
+  dataset: cifar10
+  root: ${HOME}/datasets
+  val_fraction: 0.1
+  split_seed: 0
+  batch_size: 128
+  eval_batch_size: 256
+  num_workers: 4
+  pin_memory: true
+  normalization: cifar10
+  train_augmentation:
+    random_crop: 32
+    padding: 4
+    horizontal_flip: true
+  ood_datasets:
+    - svhn
+
+model:
+  name: standard_cifar_resnet18
+  num_classes: 10
+  architecture_style: standard
+  spectral_norm:
+    enabled: false
+  mod:
+    enabled: false
+  feature_layer: pre_classifier_flattened_pool_output
+
+optimizer:
+  name: adam_coupled_decoupled
+  lr: 1.0e-3
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-8
+  weight_decay: 5.0e-4
+  coupled_ratio: 1.0
+  weight_decay_policy: weights_only_no_bias_norm
+
+scheduler:
+  name: multistep
+  milestones: [1]
+  gamma: 0.1
+
+train:
+  epochs: 2
+  loss: cross_entropy
+  save_final: true
+  save_best_val: false
+
+eval:
+  cache_splits:
+    - id_train
+    - id_val
+    - id_test
+    - ood_test
+  detectors:
+    logit:
+      - msp
+      - energy_id_score
+    feature:
+      - mahalanobis
+      - mahalanobis_l2
+      - knn
+      - gmm_ddu_tied
+      - gmm_ddu_diag
+      - gmm_ddu_shrinkage
+    geometry:
+      - within_var
+      - inter_dist_l2
+      - inter_dist_sq
+      - nc0_width_norm
+      - nc1
+      - nc2_mean_cos
+      - nc3_self_duality
+  knn:
+    k: 50
+  gmm_shrinkage:
+    alpha_grid: [0.0, 0.01, 0.05, 0.1, 0.2, 0.5]

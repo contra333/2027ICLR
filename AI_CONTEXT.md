@@ -1,6 +1,6 @@
 # AI_CONTEXT.md
 
-Last updated: 2026-05-12 KST
+Last updated: 2026-05-13 KST
 
 ## One-sentence project context
 
@@ -58,14 +58,65 @@ Do not merge these into one unsupported claim. The downstream detector link need
 
 ## Current repo status
 
-- This workspace is currently a research operations and source context repo.
-- Git has been initialized locally on branch `main`, with `origin` set to `https://github.com/contra333/2027ICLR.git`.
-- Real GPU training code may live on a server and later be mirrored or imported into `code/`.
+- This workspace is now a research operations, source context, and minimal experiment-code repo.
+- Git has local branch `main` for stable shared state and `exp/m1-smoke-pipeline` for the M1 smoke implementation work.
+- `origin` is set to `https://github.com/contra333/2027ICLR.git`.
+- Minimal standard CIFAR training/evaluation code is present under `code/`.
 - The intended execution pattern is local planning/analysis plus GPU execution on shared servers such as `101`, `175`, and `138`.
 - All servers should use the same private Git remote when available. Git is for code/config/docs/manifests; large raw outputs and checkpoints are copied outside Git tracking.
 - Server results should be copied into `results/raw/<run_id>/` with manifests under `results/manifests/`.
 - Reports and professor-facing summaries should go under `reports/`.
 - One-off work requests should be captured under `tasks/` when they need durable tracking.
+
+## Recent milestone status
+
+### M1A smoke pipeline
+
+Status: completed for the 2 epoch CIFAR-10 `standard_cifar_resnet18` SGD smoke run.
+
+Confirmed run:
+
+- `20260512_2300_101_cifar10_standard-cifar-resnet18_sgd_seed0`
+
+Registered manifest:
+
+- `results/manifests/20260512_2300_101_cifar10_standard-cifar-resnet18_sgd_seed0.json`
+
+The run completed training, shared-cache extraction, post-hoc evaluation, and `code/tests/smoke_checks.py --check run-dir`. Checkpoint and cache `.pt` artifacts remain under `/home/ghjin/iclr2027_runs/<run_id>/`; only metrics/log/config snapshots were copied into `results/raw/<run_id>/`, which is ignored by Git.
+
+### M1B optimizer endpoint smoke validation
+
+Status: completed for 2 epoch smoke runs of:
+
+- `adam`
+- `adamw`
+- `adam_coupled_decoupled` with `coupled_ratio: 0.0`
+- `adam_coupled_decoupled` with `coupled_ratio: 1.0`
+
+Implemented files:
+
+- `code/optimizers/adam_coupled_decoupled.py`
+- `code/optimizers/factory.py`
+- `code/optimizers/__init__.py`
+- `code/tests/smoke_checks.py`
+
+Added smoke configs:
+
+- `configs/smoke/cifar10_standard-cifar-resnet18_adam_2ep_seed0.yaml`
+- `configs/smoke/cifar10_standard-cifar-resnet18_adamw_2ep_seed0.yaml`
+- `configs/smoke/cifar10_standard-cifar-resnet18_adam-coupled-decoupled_r0_2ep_seed0.yaml`
+- `configs/smoke/cifar10_standard-cifar-resnet18_adam-coupled-decoupled_r1_2ep_seed0.yaml`
+
+Endpoint check:
+
+- `code/tests/smoke_checks.py --check optimizer-endpoints` verifies that `coupled_ratio=0.0` matches PyTorch AdamW one-step behavior and `coupled_ratio=1.0` matches PyTorch Adam one-step behavior on a toy parameter-group setup.
+
+Registered M1B manifests:
+
+- local-curie validation: `20260512_2334` through `20260512_2337`
+- SSH host `101` validation: `20260512_2356` through `20260512_2359`
+
+These are smoke validations only. Their 2 epoch metrics confirm the pipeline and optimizer endpoint plumbing, not paper-level evidence.
 
 ## Known risks
 
@@ -77,12 +128,11 @@ Do not merge these into one unsupported claim. The downstream detector link need
 
 ## Next actions
 
-- Add or mirror the first minimal experiment code into `code/`.
-- Define baseline configs under `configs/` before running server jobs.
-- Use `reports/METRIC_DEFINITIONS.md` before implementing or interpreting evaluator outputs.
-- New evaluator code should emit revised metric names instead of legacy `nc0`, `nc3`, `nc4`, or `inter_dist` names.
-- For each server run, copy back raw outputs and write a `results/manifests/*.json` file.
-- Clone the GitHub repo on `101`, `175`, and `138` before server-side experiment implementation.
-- Use `ops/SERVER_CLONE_TO_FIRST_RUN.md`, `code/IMPLEMENTATION_CONTRACT.md`, `code/models/ARCHITECTURE_CONTRACT.md`, and `reports/METRIC_DEFINITIONS.md` before writing the first server training/evaluation code.
-- Use `ops/MULTI_SERVER_GIT_WORKFLOW.md`, `ops/SERVER_RUN_TEMPLATE.md`, and `ops/RESULT_SYNC_GUIDE.md` when preparing or syncing server runs.
+- Commit and push the M1A/M1B smoke code, configs, task notes, reports, and manifests to `main`.
+- Treat the current M1 smoke metrics as pipeline validation only; do not interpret them as ICLR evidence.
+- Before any 200 epoch sweep, prepare matched-protocol configs and decide the first optimizer set and server allocation.
+- Keep using `reports/METRIC_DEFINITIONS.md` before interpreting evaluator outputs.
+- Keep emitting revised metric names instead of legacy `nc0`, `nc3`, `nc4`, or `inter_dist` names.
+- For each server run, copy back metrics/log/config snapshots and write a `results/manifests/*.json` file.
+- Use `ops/MULTI_SERVER_GIT_WORKFLOW.md`, `ops/SERVER_RUN_TEMPLATE.md`, `ops/RESULT_SYNC_GUIDE.md`, and `ops/RUN_MANIFEST_RULES.md` when preparing or syncing server runs.
 - Keep `AI_CONTEXT.md` updated after major milestones so new Codex sessions can restart cheaply.

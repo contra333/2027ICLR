@@ -1,0 +1,101 @@
+{
+  "run_id": "20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0",
+  "server_name": "101",
+  "server_path": "/home/ghjin/iclr2027_runs/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0",
+  "local_import_path": "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0",
+  "git_remote": "https://github.com/contra333/2027ICLR.git",
+  "git_branch": "exp/m1-smoke-pipeline",
+  "git_commit": "5c269626f944a307268f441ef523337b352f3d22",
+  "code_commit_or_snapshot": "5c269626f944a307268f441ef523337b352f3d22+dirty-m1b-optimizer-endpoints",
+  "config_path": "configs/smoke/cifar10_standard-cifar-resnet18_adamw_2ep_seed0.yaml",
+  "config_hash": "9835841dab7d6c200226cb1d1b7af6dc711e416d049a90e8a84c606ebeeef2ac",
+  "dataset": "cifar10",
+  "ood_datasets": [
+    "svhn"
+  ],
+  "model": "standard_cifar_resnet18",
+  "optimizer": "adamw",
+  "seed": 0,
+  "detectors": [
+    "msp",
+    "energy_id_score",
+    "mahalanobis",
+    "mahalanobis_l2",
+    "knn",
+    "gmm_ddu_tied",
+    "gmm_ddu_diag",
+    "gmm_ddu_shrinkage"
+  ],
+  "geometry_metrics": [
+    "within_var",
+    "inter_dist_l2",
+    "inter_dist_sq",
+    "nc0_width_norm",
+    "nc1",
+    "nc2_mean_cos",
+    "nc3_self_duality"
+  ],
+  "run_command": "/home/ghjin/miniconda3/envs/SAM/bin/python code/train.py --config \"configs/smoke/cifar10_standard-cifar-resnet18_adamw_2ep_seed0.yaml\" --out-dir \"/home/ghjin/iclr2027_runs/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0\"\n/home/ghjin/miniconda3/envs/SAM/bin/python code/extract_cache.py --config \"configs/smoke/cifar10_standard-cifar-resnet18_adamw_2ep_seed0.yaml\" --run-dir \"/home/ghjin/iclr2027_runs/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0\"\n/home/ghjin/miniconda3/envs/SAM/bin/python code/eval_posthoc.py --config \"configs/smoke/cifar10_standard-cifar-resnet18_adamw_2ep_seed0.yaml\" --run-dir \"/home/ghjin/iclr2027_runs/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0\"\n/home/ghjin/miniconda3/envs/SAM/bin/python code/tests/smoke_checks.py --config \"configs/smoke/cifar10_standard-cifar-resnet18_adamw_2ep_seed0.yaml\" --run-dir \"/home/ghjin/iclr2027_runs/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0\" --check run-dir",
+  "metrics_files": [
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_classification.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_calibration.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_ood_logit.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_ood_feature.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_ood_nc_hybrid.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_geometry.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/detector_params.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/feature_stats.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/training_summary.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/split_metadata.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/train_metrics.jsonl",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/val_metrics.jsonl"
+  ],
+  "log_files": [
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/run.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/train.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/extract_cache.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/eval_posthoc.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/run_dir_check.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/command.txt",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/git_commit.txt",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/config.sha256"
+  ],
+  "config_snapshot_files": [
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/config_snapshot.yaml"
+  ],
+  "checkpoint_files": [
+    "/home/ghjin/iclr2027_runs/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/checkpoint_final.pt"
+  ],
+  "checkpoint_copy_status": "exists_on_server_not_copied",
+  "copied_files": [
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/git_commit.txt",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/config.sha256",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/config_snapshot.yaml",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/command.txt",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/run.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/train.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/extract_cache.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/eval_posthoc.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/run_dir_check.log",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_classification.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_calibration.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_ood_logit.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_ood_feature.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_ood_nc_hybrid.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/metrics_geometry.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/detector_params.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/feature_stats.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/training_summary.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/split_metadata.json",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/train_metrics.jsonl",
+    "results/raw/20260512_2357_101_cifar10_standard-cifar-resnet18_adamw_seed0/val_metrics.jsonl"
+  ],
+  "copied_at": "2026-05-13T00:01:36+09:00",
+  "verification_status": {
+    "raw_files_copied": true,
+    "metrics_readable": true,
+    "checkpoints_present": true,
+    "manifest_complete": true,
+    "notes": "M1B 2-epoch GPU smoke pipeline completed on SSH host 101: train, cache extraction, post-hoc eval, and run-dir check. checkpoint_final.pt and cache .pt files remain in server_path and were not copied into results/raw. Run used current working-tree M1B optimizer endpoint changes that are not yet committed."
+  }
+}
