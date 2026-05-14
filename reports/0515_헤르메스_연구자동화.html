@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Agent 기반 연구 자동화 도입 보고</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5f6c7b;
+      --bg: #f5f7fa;
+      --surface: #fbfcfe;
+      --panel: #f8fafc;
+      --line: #d9e0e8;
+      --line-strong: #b9c6d6;
+      --navy: #152842;
+      --navy-deep: #132033;
+      --blue: #245b9f;
+      --blue-soft: #e8f1fb;
+      --green: #136f4b;
+      --green-soft: #e8f6ef;
+      --purple: #694f9f;
+      --purple-soft: #f0ebfa;
+      --amber: #936000;
+      --amber-soft: #fdf1d3;
+      --red: #9f2d3a;
+      --red-soft: #fdebed;
+      --code-bg: #eef3f8;
+      --radius: 8px;
+      --shadow: 0 8px 24px rgba(25, 42, 64, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.62;
+      letter-spacing: normal;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 24px 0 38px;
+    }
+
+    .report-header {
+      padding: 24px 28px;
+      border: 1px solid var(--navy-deep);
+      border-radius: var(--radius);
+      background: var(--navy);
+      color: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #d8e5f2;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--surface);
+      font-size: 28px;
+      line-height: 1.25;
+      font-weight: 820;
+      letter-spacing: normal;
+      word-break: keep-all;
+    }
+
+    .header-copy {
+      max-width: 920px;
+      margin: 12px 0 0;
+      color: #e2ebf3;
+      font-size: 15px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr 1fr;
+      gap: 1px;
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(251, 252, 254, 0.28);
+      border-radius: var(--radius);
+      background: rgba(251, 252, 254, 0.22);
+    }
+
+    .meta-item {
+      padding: 11px 14px;
+      background: rgba(251, 252, 254, 0.08);
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 4px;
+      color: #c8d8e8;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .meta-value {
+      display: block;
+      color: var(--surface);
+      font-size: 13.5px;
+      font-weight: 650;
+      line-height: 1.45;
+      overflow-wrap: break-word;
+    }
+
+    .report-section {
+      margin-top: 14px;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .section-num {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: normal;
+      word-break: keep-all;
+    }
+
+    h3 {
+      margin: 16px 0 8px;
+      color: var(--navy);
+      font-size: 17px;
+      line-height: 1.4;
+      font-weight: 760;
+      letter-spacing: normal;
+    }
+
+    p {
+      margin: 0 0 10px;
+      font-size: 15px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-wrap {
+      width: 100%;
+      margin: 12px 0 6px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    th {
+      background: var(--panel);
+      color: var(--navy);
+      text-align: center;
+      font-weight: 780;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody td:first-child {
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 720;
+      color: var(--navy);
+    }
+
+    .status-cell {
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .confirmed {
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .interpretation {
+      color: var(--purple);
+      background: var(--purple-soft);
+    }
+
+    .hypothesis {
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .risk {
+      color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    .missing {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+    code,
+    .code {
+      padding: 1px 5px;
+      border: 1px solid #d5dde7;
+      border-radius: 4px;
+      background: var(--code-bg);
+      color: var(--navy-deep);
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 13px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .definition-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .definition-item {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .definition-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .notice {
+      margin-top: 12px;
+      padding: 13px 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--blue-soft);
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 5px 0;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .source-note {
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    @media (max-width: 820px) {
+      .page {
+        width: min(100% - 24px, 1120px);
+        padding: 16px 0 28px;
+      }
+
+      .report-header,
+      .report-section {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .meta-row {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+    }
+
+    @media print {
+      body {
+        background: var(--surface);
+      }
+
+      .page {
+        width: auto;
+        padding: 0;
+      }
+
+      .report-header,
+      .report-section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="report-header">
+      <p class="eyebrow">2027 ICLR 연구 운영 보고 · 2026.05.15 KST</p>
+      <h1>Hermes Agent 기반 연구 자동화 도입 보고</h1>
+      <p class="header-copy">
+        ICLR 2027 연구에서 본격적인 GPU sweep을 시작하기 전, 실험 정의와 metric, detector 구현, 서버 운영 점검을 더 안정적으로 진행하기 위해 Hermes Agent를 연구 운영 보조 장치로 연결하였습니다.
+      </p>
+      <div class="meta-row" aria-label="보고서 메타 정보">
+        <div class="meta-item">
+          <span class="meta-label">Project</span>
+          <span class="meta-value">optimizer-induced feature geometry / OOD detection</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Status</span>
+          <span class="meta-value">Hermes Agent 운영 세팅 완료, ICLR2027 연구 pre-flight audit 적용 시작</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">핵심 메시지</span>
+          <span class="meta-value">논문급 실험 전 정의와 구현 위험을 밤 시간에도 점검하는 운영 구조를 구축하였습니다.</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="report-section" id="problem">
+      <div class="section-heading">
+        <span class="section-num">1</span>
+        <h2>현재 연구에서 느끼는 문제점</h2>
+      </div>
+      <p>
+        현재 ICLR 2027 연구는 NeurIPS 2026에서 관찰한 현상을 더 넓은 optimizer family와 feature geometry 관점으로 확장하는 단계에 있습니다. 핵심 질문은 optimizer choice와 weight-decay coupling이 penultimate feature geometry 및 Neural Collapse regime을 어떻게 바꾸고, 이 변화가 Mahalanobis, DDU/GMM, kNN, ViM, NC/prototype detector에 어떻게 다르게 읽히는가입니다.
+      </p>
+      <p>
+        이 단계에서 가장 큰 병목은 GPU 실험을 바로 많이 돌리는 것이 아니라, 실험 정의와 점검 체계를 먼저 믿을 수 있게 만드는 데 있습니다. 조건과 metric이 흔들리면 200 epoch 결과가 나와도 논문에서 방어하기 어렵습니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>현재 문제</th>
+              <th>설명</th>
+              <th>먼저 해결해야 하는 이유</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>실험 조건의 공정성</td>
+              <td>dataset, architecture, augmentation, epoch, scheduler, seed, weight decay policy가 optimizer 외 조건으로 흔들릴 수 있습니다.</td>
+              <td>optimizer-induced geometry라는 주장에서는 optimizer 외의 차이가 confound가 됩니다.</td>
+            </tr>
+            <tr>
+              <td>metric 정의와 방향</td>
+              <td>OOD score에서 higher가 ID-like인지 OOD-like인지, <code>fpr95</code>, <code>aupr_in</code>, ECE 계산이 일관되는지 확인해야 합니다.</td>
+              <td>score direction이 뒤집히면 AUROC/FPR95 해석이 완전히 달라질 수 있습니다.</td>
+            </tr>
+            <tr>
+              <td>detector 구현 범위</td>
+              <td>Mahalanobis, DDU/GMM, kNN, ViM, NC/prototype detector가 같은 기준으로 비교되는지 점검해야 합니다.</td>
+              <td>reviewer가 detector family coverage와 tuning protocol을 문제 삼을 수 있습니다.</td>
+            </tr>
+            <tr>
+              <td>서버 운영의 단절</td>
+              <td>긴 점검과 반복 audit은 연구자가 컴퓨터 앞에 있을 때만 진행되면 속도가 느려집니다.</td>
+              <td>밤 시간에도 문서 읽기, 코드 대조, 보고서 초안 작성이 이어져야 다음 날 바로 판단할 수 있습니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="why-hermes">
+      <div class="section-heading">
+        <span class="section-num">2</span>
+        <h2>이를 해결하기 위한 Hermes Agent 도입</h2>
+      </div>
+      <p>
+        이 문제를 줄이기 위해 Hermes Agent를 연구 운영 보조 장치로 도입하였습니다. Hermes Agent는 논문 결론을 대신 내리는 도구가 아니라, 연구자가 자리에 없는 시간에도 연구 문서와 코드를 읽고, 점검 보고서와 실행 명령 초안을 남기는 보조 프로그램입니다.
+      </p>
+      <p>
+        도입 목적은 단순히 챗봇을 하나 더 사용하는 것이 아닙니다. 연구 context가 Slack channel, 사설 서버 workspace, repo clone, daily briefing output에 누적되도록 만들고, 반복적인 문헌 조사, 실험 계획 점검, metric audit, 로그 분석을 밤 시간에도 진행할 수 있게 하는 것입니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>Hermes Agent가 맡는 역할</th>
+              <th>연구자가 맡는 역할</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>밤 시간 연구 운영</td>
+              <td>Slack 지시를 받아 repo와 문서를 읽고 audit report 초안을 남깁니다.</td>
+              <td>연구 방향, 우선순위, 최종 판단을 결정합니다.</td>
+            </tr>
+            <tr>
+              <td>실험 전 점검</td>
+              <td>code/config/metric/source boundary를 정적으로 대조합니다.</td>
+              <td>실제 코드 수정, 테스트, commit, GPU 실행을 승인합니다.</td>
+            </tr>
+            <tr>
+              <td>반복 작업</td>
+              <td>문헌 후보 정리, server command 초안, manifest check list를 만듭니다.</td>
+              <td>논문 주장으로 사용할 수 있는지 evidence level을 판단합니다.</td>
+            </tr>
+            <tr>
+              <td>보고 준비</td>
+              <td>daily research log와 audit 결과를 보고용 구조로 정리합니다.</td>
+              <td>보고서의 해석 강도와 표현을 최종 조정합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="what-is-hermes">
+      <div class="section-heading">
+        <span class="section-num">3</span>
+        <h2>Hermes Agent가 무엇인지</h2>
+      </div>
+      <p>
+        Hermes Agent는 항상 켜져 있는 원격 컴퓨터 위에서 돌아가는 연구 보조 프로그램입니다. 연구자가 Slack에 지시를 남기면, Hermes가 연구 repo와 문서를 읽고, 필요한 점검을 수행한 뒤, 보고서 초안이나 실행 명령 초안을 남깁니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>용어</th>
+              <th>짧은 설명</th>
+              <th>이 연구에서의 역할</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Slack</td>
+              <td>여러 사람이 대화방처럼 메시지를 남기는 협업 도구입니다.</td>
+              <td><code>#2027iclr</code> channel에 연구 지시와 결과 기록을 남깁니다.</td>
+            </tr>
+            <tr>
+              <td>VPS</td>
+              <td>개인이 빌려 쓰는, 항상 켜져 있는 원격 컴퓨터입니다.</td>
+              <td>연구자의 노트북이 꺼져 있어도 Hermes가 계속 대기할 수 있게 합니다.</td>
+            </tr>
+            <tr>
+              <td>repo</td>
+              <td>코드, 설정, 문서를 Git으로 관리하는 연구 작업 폴더다.</td>
+              <td>Hermes가 ICLR2027 연구 파일을 읽고 audit할 기준 자료입니다.</td>
+            </tr>
+            <tr>
+              <td>Docker sandbox</td>
+              <td>프로그램을 본체와 분리된 실행 공간에서 돌리는 방식입니다.</td>
+              <td>Hermes가 분석 작업을 하더라도 서버 본체와 연구 파일을 더 안전하게 보호합니다.</td>
+            </tr>
+            <tr>
+              <td>GPU 서버</td>
+              <td>딥러닝 학습처럼 계산량이 큰 일을 돌리는 별도 서버입니다.</td>
+              <td>Hermes가 직접 대규모 학습을 마음대로 실행하지 않고, 실행 계획과 명령 초안을 준비합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice">
+        <strong>작동 흐름</strong>
+        <p>
+          연구자가 Slack에 "이 repo를 읽고 metric 정의가 맞는지 점검해라"라고 지시하면, Hermes가 사설 서버 안의 분리된 실행 공간에서 repo를 읽고, 점검 결과를 Markdown 보고서 형태로 남깁니다. 이후 로컬 Codex로 실제 수정과 테스트를 수행하거나, GPU 서버에서 실행할 명령을 확정합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="report-section" id="agent-trend">
+      <div class="section-heading">
+        <span class="section-num">4</span>
+        <h2>왜 이런 Agent 방식이 요즘 많이 사용되는가</h2>
+      </div>
+      <p>
+        요즘 agent 방식이 많이 사용되는 이유는 AI가 대화를 잘하기 때문만은 아닙니다. 연구와 개발에서는 파일을 읽고, 코드와 문서를 대조하고, 명령을 제안하고, 결과를 보고서로 정리하는 반복 작업이 많습니다. Agent는 이런 작업을 하나의 흐름으로 이어 줄 수 있습니다.
+      </p>
+      <p>
+        일반 챗봇은 질문에 답하는 데 집중합니다. 반면 Hermes 같은 agent는 repo 안의 문서와 코드를 읽고, 긴 점검 절차를 수행하고, 다음에 연구자가 실행할 명령과 보고서 초안을 남기는 데 초점이 있습니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>장점</th>
+              <th>연구에서의 의미</th>
+              <th>주의점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>비동기 작업</td>
+              <td>밤에도 문헌 후보 조사, config 점검, metric audit이 진행될 수 있습니다.</td>
+              <td>최종 판단과 논문 claim은 연구자가 해야 합니다.</td>
+            </tr>
+            <tr>
+              <td>파일 기반 점검</td>
+              <td>repo, source note, metric contract, server workflow 문서를 함께 읽을 수 있습니다.</td>
+              <td>읽은 파일과 읽지 않은 파일을 보고서에 구분해야 합니다.</td>
+            </tr>
+            <tr>
+              <td>반복 audit 자동화</td>
+              <td>같은 형식으로 누락, 위험, 다음 명령을 정리할 수 있습니다.</td>
+              <td>자동 실행 권한을 과하게 주면 위험하므로 금지 규칙이 필요하다.</td>
+            </tr>
+            <tr>
+              <td>context 축적</td>
+              <td>Slack과 workspace에 연구 운영 기록이 남는다.</td>
+              <td>중요한 결과는 repo 문서와 manifest로 다시 정리해야 합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="today-build">
+      <div class="section-heading">
+        <span class="section-num">5</span>
+        <h2>오늘 구현한 작업</h2>
+      </div>
+      <p>
+        오늘 작업의 핵심은 편의성과 안전을 동시에 확보하는 것이었습니다. 연구 지시를 쉽게 내릴 수 있도록 Slack channel과 사설 서버를 연결하였고, 동시에 Hermes가 위험한 일을 임의로 하지 못하도록 Docker sandbox와 운영 금지 규칙을 설정하였습니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>작업</th>
+              <th>현재 값 또는 설정</th>
+              <th>의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>사설 서버 구입 및 확보</td>
+              <td>Contabo VPS 기반 Hermes 운영 공간</td>
+              <td>연구자의 노트북과 별개로 계속 켜져 있는 연구 보조 실행 환경을 마련하였습니다.</td>
+            </tr>
+            <tr>
+              <td>Slack channel 연결</td>
+              <td><code>#2027iclr</code>, channel ID <code>C0B3YA6TM36</code></td>
+              <td>ICLR2027 연구 지시와 결과를 별도 channel에 축적합니다.</td>
+            </tr>
+            <tr>
+              <td>VPS workspace 구성</td>
+              <td><code>/home/hermes/ax-os/workspace/iclr2027/</code></td>
+              <td>Hermes가 이 연구만 따로 다룰 수 있는 작업 공간을 만들었습니다.</td>
+            </tr>
+            <tr>
+              <td>repo clone 준비</td>
+              <td><code>/home/hermes/ax-os/workspace/iclr2027/2027ICLR/</code></td>
+              <td>Hermes가 ICLR2027 코드와 문서를 읽고 audit할 수 있게 하였습니다.</td>
+            </tr>
+            <tr>
+              <td>모델 provider 설정</td>
+              <td><code>openai-codex</code>, <code>gpt-5.5</code>, <code>xhigh</code></td>
+              <td>긴 문헌과 코드 점검에 맞는 reasoning configuration을 사용하도록 설정하였습니다.</td>
+            </tr>
+            <tr>
+              <td>실행 안전장치</td>
+              <td>Docker sandbox backend</td>
+              <td>Hermes 분석 작업이 서버 본체와 더 분리된 공간에서 실행되게 하였습니다.</td>
+            </tr>
+            <tr>
+              <td>daily briefing</td>
+              <td>매일 08:00 KST, arXiv RSS + Hugging Face Daily Papers</td>
+              <td>관련 문헌 후보를 매일 아침 확인할 수 있게 하였습니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice">
+        <strong>안전 정책</strong>
+        <p>
+          Hermes는 repo 읽기, 계획, 분석, 보고서 초안 작성, 실행 명령 제안을 수행합니다. 반대로 <code>main</code> 직접 push, force push, 학과 GPU 서버 자동 실행, 대량 삭제, secret 출력은 금지합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="report-section" id="research-connection">
+      <div class="section-heading">
+        <span class="section-num">6</span>
+        <h2>오늘 연구에 접목한 방식</h2>
+      </div>
+      <p>
+        Hermes를 처음 연결한 연구 작업은 ICLR2027 pre-flight audit입니다. 여기서 pre-flight audit은 GPU 시간을 쓰기 전에 실험 설정과 metric 정의가 논문에서 방어 가능한 상태인지 확인하는 절차입니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>audit 항목</th>
+              <th>Hermes에게 맡긴 확인</th>
+              <th>연구에서의 의미</th>
+              <th>다음 행동</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>학습설정 공정성 audit</td>
+              <td>dataset, architecture, augmentation, epoch, scheduler, seed, total weight decay, feature layer가 고정되는지 확인합니다.</td>
+              <td>optimizer 비교에서 confound를 줄입니다.</td>
+              <td>200 epoch config 확정 전 반영합니다.</td>
+            </tr>
+            <tr>
+              <td>optimizer semantics audit</td>
+              <td><code>code/IMPLEMENTATION_CONTRACT.md</code>와 optimizer factory/code를 대조합니다.</td>
+              <td>Adam, AdamW, coupled-decoupled WD 축의 의미가 흐려지지 않게 합니다.</td>
+              <td>endpoint semantics 문서와 코드 일치를 확인합니다.</td>
+            </tr>
+            <tr>
+              <td>metric definition audit</td>
+              <td><code>higher = ID-like</code>, <code>ID = 1</code>, <code>OOD = 0</code>, <code>fpr95</code>, <code>aupr_in</code>, ECE, Energy sign을 확인합니다.</td>
+              <td>OOD metric 해석이 뒤집히는 위험을 막습니다.</td>
+              <td>evaluator output contract를 점검합니다.</td>
+            </tr>
+            <tr>
+              <td>OOD detector gap matrix</td>
+              <td>logit, feature, density, hybrid, NC/prototype detector별 구현/누락/위험을 분류합니다.</td>
+              <td>reviewer objection에 대비해 detector family coverage를 확인합니다.</td>
+              <td>Tier 0 evaluator를 보강합니다.</td>
+            </tr>
+            <tr>
+              <td>Geometry / Neural Collapse metric audit</td>
+              <td>feature geometry와 NC component naming이 report contract와 맞는지 확인합니다.</td>
+              <td>optimizer-induced geometry claim의 측정 축을 안정화합니다.</td>
+              <td>metric naming과 output schema를 점검합니다.</td>
+            </tr>
+            <tr>
+              <td>source boundary 확인</td>
+              <td>optimizer/NC paper, NECO, Mahalanobis++, ViM, smoke validation의 evidence level을 분리합니다.</td>
+              <td>문헌 근거, smoke validation, ICLR hypothesis를 한 증거층처럼 사용하지 않게 합니다.</td>
+              <td>report와 paper text에서 경계를 유지합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="source-note">
+        Hermes에게 요구한 보고서 형식: Executive Summary, Files Read, Training Setup Fairness Audit, Optimizer Semantics Audit, Metric Definition Audit, OOD Detector Implementation Gap Matrix, Geometry / Neural Collapse Metric Audit, High-Risk Ambiguities, Recommended Fix Order, Commands I Should Run Locally or on GPU Server Later.
+      </p>
+    </section>
+
+    <section class="report-section" id="evidence">
+      <div class="section-heading">
+        <span class="section-num">7</span>
+        <h2>현재 증거 수준과 주의점</h2>
+      </div>
+      <p>
+        현재 증거는 여러 층으로 분리해야 합니다. 이 분리는 보고서와 논문 작성 모두에서 중요합니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>증거층</th>
+              <th>현재 상태</th>
+              <th>사용할 수 있는 주장</th>
+              <th>주의점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NeurIPS 2026 prior</td>
+              <td class="status-cell"><span class="status confirmed">확정</span></td>
+              <td>SAM에서 output reliability와 feature-based uncertainty가 분리될 수 있습니다.</td>
+              <td>ICLR 확장 결과와 섞지 않습니다.</td>
+            </tr>
+            <tr>
+              <td>외부 문헌</td>
+              <td class="status-cell"><span class="status interpretation">해석</span></td>
+              <td>optimizer choice가 NC/geometry에 영향을 주고, OOD detector family와 protocol 설계가 중요합니다.</td>
+              <td>downstream detector behavior는 본 연구의 실험으로 검증해야 합니다.</td>
+            </tr>
+            <tr>
+              <td>M1 smoke validation</td>
+              <td class="status-cell"><span class="status confirmed">확정</span></td>
+              <td>train, cache, eval, manifest pipeline이 최소 단위로 동작합니다.</td>
+              <td>2 epoch smoke metric은 paper-level evidence가 아닙니다.</td>
+            </tr>
+            <tr>
+              <td>Hermes audit</td>
+              <td class="status-cell"><span class="status interpretation">해석/운영</span></td>
+              <td>full-scale 실험 전에 code/config/metric/source boundary 위험을 찾는 운영 점검입니다.</td>
+              <td>audit 결과 자체가 논문 claim의 실험 근거는 아닙니다.</td>
+            </tr>
+            <tr>
+              <td>자동 실행 권한</td>
+              <td class="status-cell"><span class="status risk">위험</span></td>
+              <td>Hermes가 편리하더라도 자동 push, 자동 GPU 실행, 대량 삭제 권한은 제한해야 합니다.</td>
+              <td>편의성보다 연구 파일과 서버 안전을 우선합니다.</td>
+            </tr>
+            <tr>
+              <td>full-scale 결과</td>
+              <td class="status-cell"><span class="status missing">누락</span></td>
+              <td>아직 200 epoch, multi-seed, matched-protocol 결과는 확보되지 않았습니다.</td>
+              <td>ICLR main claim은 이 결과가 나온 뒤에만 강하게 쓸 수 있습니다.</td>
+            </tr>
+            <tr>
+              <td>ICLR main claim</td>
+              <td class="status-cell"><span class="status hypothesis">가설</span></td>
+              <td>optimizer-induced geometry regime이 detector family별 성공/실패를 설명할 수 있습니다.</td>
+              <td>200 epoch, multi-seed, matched-protocol 결과가 필요합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice">
+        <strong>해석 기준</strong>
+        <p>
+          Hermes 도입의 의미는 "새로운 연구 결과가 이미 나왔다"가 아닙니다. 정확한 의미는 "논문급 실험을 시작하기 전에, 실험 정의와 구현 위험을 더 체계적으로 점검할 수 있는 운영 구조를 구축하였다"입니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="report-section" id="next">
+      <div class="section-heading">
+        <span class="section-num">8</span>
+        <h2>다음 작업</h2>
+      </div>
+      <p>
+        다음 단계는 Hermes audit 결과를 받아 로컬 Codex로 필요한 수정과 보강을 진행하는 것입니다. 그 다음 200 epoch matched-protocol sweep을 시작하기 전에 config와 evaluator contract를 확정해야 합니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>작업</th>
+              <th>완료 조건</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Hermes audit report 확인</td>
+              <td>누락, 애매함, likely bug, not checked 항목이 분류되어 있습니다.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>로컬 Codex로 코드/config 보강</td>
+              <td>metric contract와 implementation contract가 코드에 반영됩니다.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>200 epoch matched-protocol config 확정</td>
+              <td>optimizer 외 조건이 고정되고, run ID와 output path가 명시됩니다.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>GPU 서버 실행 계획 수립</td>
+              <td><code>101</code>, <code>175</code>, <code>138</code>의 branch, commit, config, command가 정리됩니다.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>daily research log 반복</td>
+              <td>Hermes briefing, audit, 실험 결과를 보고 형식으로 누적합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="daily-workflow">
+      <div class="section-heading">
+        <span class="section-num">9</span>
+        <h2>오늘 추가로 정한 보고 workflow</h2>
+      </div>
+      <p>
+        Hermes 운영 보고를 정리하는 과정에서, 앞으로 매일의 연구 작업을 Markdown과 HTML 쌍으로 남기는 방식을 정했습니다. Markdown은 AI가 나중에 그날의 작업 맥락을 복원하기 위한 source of truth로 사용하고, HTML은 사람이 읽기 쉬운 보고용 문서로 사용합니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>작업</th>
+              <th>결과</th>
+              <th>의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>daily report workflow 문서화</td>
+              <td><code>reports/DAILY_REPORT_WORKFLOW.md</code> 추가</td>
+              <td>앞으로 날짜별 작업 기록을 일관되게 남길 기준을 마련했습니다.</td>
+            </tr>
+            <tr>
+              <td>Markdown template 추가</td>
+              <td><code>reports/templates/daily_work_log.md</code> 추가</td>
+              <td>AI가 읽기 쉬운 일일 작업 기록 구조를 만들었습니다.</td>
+            </tr>
+            <tr>
+              <td>HTML template 추가</td>
+              <td><code>reports/templates/daily_report.html</code> 추가</td>
+              <td>보고용 HTML을 매번 같은 기준으로 만들 수 있게 했습니다.</td>
+            </tr>
+            <tr>
+              <td>reports agent 규칙 보강</td>
+              <td><code>reports/AGENTS.md</code> 수정</td>
+              <td>future AI session이 daily report workflow를 먼저 확인하도록 했습니다.</td>
+            </tr>
+            <tr>
+              <td>project context 보강</td>
+              <td><code>AI_CONTEXT.md</code> 수정</td>
+              <td>future AI session이 <code>AI_CONTEXT.md</code>뿐 아니라 날짜별 report도 함께 확인하도록 했습니다.</td>
+            </tr>
+            <tr>
+              <td>memory update note 추가</td>
+              <td>Codex memory ad hoc note 추가</td>
+              <td>daily Markdown + HTML 보고 선호와 날짜별 report의 맥락 역할을 future AI가 기억하도록 했습니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="sources">
+      <div class="section-heading">
+        <span class="section-num">10</span>
+        <h2>이번 보고서 작성에서 확인한 파일</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>파일 또는 문서명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>품질 및 연구 맥락</td>
+              <td><code>PRODUCT.md</code>, <code>DESIGN.md</code>, <code>AI_CONTEXT.md</code>, <code>reports/AGENTS.md</code>, <code>reports/DAILY_REPORT_WORKFLOW.md</code></td>
+            </tr>
+            <tr>
+              <td>보고 workflow template</td>
+              <td><code>reports/templates/daily_work_log.md</code>, <code>reports/templates/daily_report.html</code></td>
+            </tr>
+            <tr>
+              <td>현재 보고서</td>
+              <td>현재 Markdown 초안 파일, 현재 HTML 보고서 파일</td>
+            </tr>
+            <tr>
+              <td>초안에 기록된 Hermes context 문서명</td>
+              <td>
+                <code>00_헤르메스_현재상태_current_state.md</code>,
+                <code>01_다른AI에게_전달할_요약_handoff.md</code>,
+                <code>02_운영점검_체크리스트_ops_checklist.md</code>,
+                <code>04_헤르메스_사용방안_AI용_usage_guide.md</code>,
+                <code>06_서버정보_AI용_server_info.md</code>,
+                <code>09_ICLR2027_헤르메스_운영현황.md</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YYYY.MM.DD Daily Research Report</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5f6c7b;
+      --bg: #f5f7fa;
+      --surface: #fbfcfe;
+      --panel: #ffffff;
+      --line: #d9e0e8;
+      --navy: #152842;
+      --blue: #245b9f;
+      --blue-soft: #e8f1fb;
+      --green: #136f4b;
+      --green-soft: #e8f6ef;
+      --purple: #694f9f;
+      --purple-soft: #f0ebfa;
+      --amber: #936000;
+      --amber-soft: #fdf1d3;
+      --red: #9f2d3a;
+      --red-soft: #fdebed;
+      --code-bg: #eef3f8;
+      --radius: 8px;
+      --shadow: 0 8px 24px rgba(25, 42, 64, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.62;
+      letter-spacing: normal;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 24px 0 38px;
+    }
+
+    .report-header,
+    .report-section {
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .report-header {
+      padding: 24px 28px;
+      border: 1px solid #132033;
+      background: var(--navy);
+      color: var(--surface);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #d8e5f2;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--surface);
+      font-size: 28px;
+      line-height: 1.25;
+      font-weight: 820;
+      letter-spacing: normal;
+      word-break: keep-all;
+    }
+
+    .header-copy {
+      max-width: 920px;
+      margin: 12px 0 0;
+      color: #e2ebf3;
+      font-size: 15px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(251, 252, 254, 0.28);
+      border-radius: var(--radius);
+      background: rgba(251, 252, 254, 0.22);
+    }
+
+    .meta-item {
+      padding: 11px 14px;
+      background: rgba(251, 252, 254, 0.08);
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 4px;
+      color: #c8d8e8;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .meta-value {
+      display: block;
+      color: var(--surface);
+      font-size: 13.5px;
+      font-weight: 650;
+      line-height: 1.45;
+      overflow-wrap: break-word;
+    }
+
+    .report-section {
+      margin-top: 14px;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .section-num {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: normal;
+      word-break: keep-all;
+    }
+
+    p {
+      margin: 0 0 10px;
+      font-size: 15px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .table-wrap {
+      width: 100%;
+      margin: 12px 0 6px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--navy);
+      text-align: center;
+      font-weight: 780;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody td:first-child,
+    .status-cell {
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 720;
+      color: var(--navy);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .confirmed { color: var(--green); background: var(--green-soft); }
+    .interpretation { color: var(--purple); background: var(--purple-soft); }
+    .hypothesis { color: var(--blue); background: var(--blue-soft); }
+    .risk { color: var(--amber); background: var(--amber-soft); }
+    .missing { color: var(--red); background: var(--red-soft); }
+
+    code,
+    .code {
+      padding: 1px 5px;
+      border: 1px solid #d5dde7;
+      border-radius: 4px;
+      background: var(--code-bg);
+      color: #132033;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 820px) {
+      .page {
+        width: min(100% - 24px, 1120px);
+        padding: 16px 0 28px;
+      }
+
+      .report-header,
+      .report-section {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .meta-row,
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="report-header">
+      <p class="eyebrow">YYYY.MM.DD KST · Daily Research Report</p>
+      <h1>Report title from Markdown</h1>
+      <p class="header-copy">One concise sentence stating the day's research context and why the work matters.</p>
+      <div class="meta-row" aria-label="report metadata">
+        <div class="meta-item">
+          <span class="meta-label">Project</span>
+          <span class="meta-value">ICLR 2027 optimizer-induced feature geometry / OOD detection</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Status</span>
+          <span class="meta-value">Short status from Markdown</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Source</span>
+          <span class="meta-value">Derived from <code>reports/MMDD_topic.md</code></span>
+        </div>
+      </div>
+    </header>
+
+    <section class="report-section" id="goal">
+      <div class="section-heading">
+        <span class="section-num">1</span>
+        <h2>오늘의 목표</h2>
+      </div>
+      <p>Summarize the day's goal from the Markdown source.</p>
+    </section>
+
+    <section class="report-section" id="progress">
+      <div class="section-heading">
+        <span class="section-num">2</span>
+        <h2>오늘 진행한 작업</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>작업</th>
+              <th>확인한 내용</th>
+              <th>의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Example</td>
+              <td>Replace with Markdown-derived fact.</td>
+              <td>Explain why it matters.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="evidence">
+      <div class="section-heading">
+        <span class="section-num">3</span>
+        <h2>증거 수준과 주의점</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>상태</th>
+              <th>오늘 말할 수 있는 내용</th>
+              <th>부족한 점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Confirmed item</td>
+              <td class="status-cell"><span class="status confirmed">확정</span></td>
+              <td>Markdown-derived confirmed fact.</td>
+              <td>Remaining caveat.</td>
+            </tr>
+            <tr>
+              <td>Missing item</td>
+              <td class="status-cell"><span class="status missing">누락</span></td>
+              <td>What cannot be claimed yet.</td>
+              <td>Needed evidence.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="report-section" id="next">
+      <div class="section-heading">
+        <span class="section-num">4</span>
+        <h2>다음 작업</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>작업</th>
+              <th>완료 조건</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Next action from Markdown.</td>
+              <td>Verifiable completion condition.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

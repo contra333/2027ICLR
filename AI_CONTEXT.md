@@ -26,6 +26,7 @@ Neural Collapse Is Not One Geometry: Optimizer-Dependent Collapse Regimes and Th
 - `소스/INDEX.md`: source inventory and evidence boundaries.
 - `ops/`: multi-server Git, server run, and result-sync operating instructions.
 - `reports/METRIC_DEFINITIONS.md`: metric contract for server evaluators, Codex CLI, and GPT-based analysis; it uses revised NC names such as `nc0_width_norm`, `nc3_self_duality`, `nc4_agreement`, and `inter_dist_l2` to avoid legacy-name ambiguity.
+- `reports/DAILY_REPORT_WORKFLOW.md` and paired daily reports such as `reports/MMDD_<topic>.md` / `.html`: chronological daily work records. Future AI sessions should use these reports, in addition to `AI_CONTEXT.md`, to reconstruct what happened on each date, what files were read, what decisions were made, and what remains unresolved.
 - `ops/SERVER_CLONE_TO_FIRST_RUN.md`: server clone-to-smoke-run workflow for `101`, `175`, and `138`.
 - `code/IMPLEMENTATION_CONTRACT.md`: server code contract for standard training, optimizer semantics, and shared-cache evaluation.
 - `code/models/ARCHITECTURE_CONTRACT.md` and `reports/ARCHITECTURE_REFERENCES.md`: standard CIFAR ResNet/WRN definitions and implementation references.

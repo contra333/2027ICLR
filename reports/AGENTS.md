@@ -4,6 +4,15 @@
 
 `reports/` contains experiment summaries, professor-facing reports, analysis notes, and paper interpretation drafts.
 
+## Daily report workflow
+
+- For daily research records or paired Markdown/HTML reports, read `reports/DAILY_REPORT_WORKFLOW.md` first.
+- Write or update the Markdown work log before generating the HTML report.
+- Treat the Markdown as the source of truth; the HTML should not introduce new claims, metrics, or results absent from the Markdown.
+- Use `reports/templates/daily_work_log.md` and `reports/templates/daily_report.html` as starting points when creating a new daily report pair.
+- For date-specific context, use the relevant daily Markdown report in `reports/` alongside `AI_CONTEXT.md`.
+- `AI_CONTEXT.md` is the compact project restart note; daily reports are the chronological record of what happened each date.
+
 ## Reporting rules
 
 - Separate confirmed results, interpretation, and next hypotheses.
