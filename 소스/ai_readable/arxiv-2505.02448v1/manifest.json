@@ -1,0 +1,46 @@
+{
+  "source_id": "arxiv-2505.02448v1",
+  "title": "Recent Advances in Out-of-Distribution Detection with CLIP-Like Models: A Survey",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "2505.02448v1",
+  "original_path": "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Recent Advances in Out-of-Distribution Detection with CLIP-Like Models_ A Survey.pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "13d9d471d7ccd1d05f64c0b03dafb0ee0951a6d82f82f472f5c976aa4f7c5735"
+  },
+  "pdf_pages": 9,
+  "derived_files": [
+    "소스/ai_readable/arxiv-2505.02448v1/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-2505.02448v1/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-2505.02448v1/AI_README.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Recent Advances in Out-of-Distribution Detection with CLIP-Like Models_ A Survey.pdf",
+      "소스/ai_readable/arxiv-2505.02448v1/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-2505.02448v1/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-2505.02448v1/AI_README.md"
+    ],
+    "secondary": []
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "unavailable",
+      "stdout": "404: resource not available for 2505.02448v1",
+      "stderr": ""
+    },
+    {
+      "mode": "fulltext",
+      "status": "error",
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\.agents\\skills\\alphaxiv-paper-lookup\\scripts\\fetch_alphaxiv.py\", line 38, in <module>\n    print(fetch(url))\nUnicodeEncodeError: 'cp949' codec can't encode character '\\u2217' in position 169: illegal multibyte sequence\n"
+    }
+  ],
+  "unsupported_boundary": "Use as CLIP-like OOD survey context, not as direct optimizer, Neural Collapse, Mahalanobis, DDU, or kNN causal evidence.",
+  "created_at": "2026-05-13T17:01:27+09:00",
+  "updated_at": "2026-05-13T17:01:27+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place; alphaXiv files are navigation aids only."
+}

@@ -1,0 +1,46 @@
+{
+  "source_id": "arxiv-2408.16757v2",
+  "title": "Dissecting Out-of-Distribution Detection and Open-Set Recognition: A Critical Analysis of Methods and Benchmarks",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "2408.16757v2",
+  "original_path": "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Dissecting Out-of-Distribution Detection and Open-Set Recognition_ A Critical Analysis of Methods and Benchmarks.pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "08d0fecde913e8a82769df74d42807cea9dcc7cbd3b3e8f9cbf71545d07b302e"
+  },
+  "pdf_pages": 33,
+  "derived_files": [
+    "소스/ai_readable/arxiv-2408.16757v2/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-2408.16757v2/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-2408.16757v2/AI_README.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Dissecting Out-of-Distribution Detection and Open-Set Recognition_ A Critical Analysis of Methods and Benchmarks.pdf",
+      "소스/ai_readable/arxiv-2408.16757v2/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-2408.16757v2/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-2408.16757v2/AI_README.md"
+    ],
+    "secondary": []
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "unavailable",
+      "stdout": "404: resource not available for 2408.16757v2",
+      "stderr": ""
+    },
+    {
+      "mode": "fulltext",
+      "status": "error",
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\.agents\\skills\\alphaxiv-paper-lookup\\scripts\\fetch_alphaxiv.py\", line 38, in <module>\n    print(fetch(url))\nUnicodeEncodeError: 'cp949' codec can't encode character '\\u2013' in position 2120: illegal multibyte sequence\n"
+    }
+  ],
+  "unsupported_boundary": "Use as OOD/OSR benchmark and method-analysis context, not as direct Neural Collapse, optimizer-causality, or feature-geometry evidence.",
+  "created_at": "2026-05-13T17:01:27+09:00",
+  "updated_at": "2026-05-13T17:01:27+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place; alphaXiv files are navigation aids only."
+}

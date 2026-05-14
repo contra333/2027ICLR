@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2027 ICLR 연구 진행 보고 | 2026.05.13</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5f6c7b;
+      --paper: #f5f7fa;
+      --surface: #fbfcfe;
+      --panel: #fdfefe;
+      --line: #d9e0e8;
+      --line-strong: #bec9d6;
+      --navy: #152842;
+      --navy-deep: #132033;
+      --blue: #245b9f;
+      --blue-soft: #e8f1fb;
+      --green: #136f4b;
+      --green-soft: #e8f6ef;
+      --purple: #694f9f;
+      --purple-soft: #f0ebfa;
+      --amber: #936000;
+      --amber-soft: #fdf1d3;
+      --red: #9f2d3a;
+      --red-soft: #fdebed;
+      --code-bg: #eef3f8;
+      --shadow-section: 0 8px 24px rgba(25, 42, 64, 0.06);
+      --shadow-header: 0 8px 26px rgba(30, 42, 60, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.68;
+      letter-spacing: normal;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 22px 48px;
+    }
+
+    .report-header {
+      background: var(--navy);
+      color: var(--surface);
+      border: 1px solid var(--navy-deep);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-header);
+      padding: 28px 32px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #cbd7e6;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: normal;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(237, 243, 248, 0.28);
+      border-radius: var(--radius);
+      background: rgba(237, 243, 248, 0.18);
+    }
+
+    .meta-item {
+      min-height: 82px;
+      padding: 14px 16px;
+      background: rgba(251, 252, 254, 0.06);
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #cbd7e6;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .meta-value {
+      color: var(--surface);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    section {
+      margin-top: 18px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-section);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-number {
+      flex: 0 0 auto;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: normal;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      color: var(--navy);
+      font-size: 17px;
+      line-height: 1.4;
+      font-weight: 780;
+    }
+
+    p {
+      margin: 0 0 12px;
+      font-size: 15px;
+    }
+
+    .lead {
+      color: var(--ink);
+      font-size: 15.5px;
+    }
+
+    .compact-list {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    .compact-list li {
+      margin: 6px 0;
+    }
+
+    .logic-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+      padding: 14px;
+      border: 1px solid #c9d9ee;
+      border-radius: var(--radius);
+      background: var(--blue-soft);
+    }
+
+    .flow-cell {
+      min-height: 116px;
+      padding: 14px;
+      border: 1px solid #c5d5e9;
+      border-radius: var(--radius);
+      background: #f7fbff;
+    }
+
+    .flow-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .flow-title {
+      display: block;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .flow-copy {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    td {
+      text-align: left;
+    }
+
+    th {
+      background: #eef3f8;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tbody td:first-child {
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 650;
+    }
+
+    td.cell-status,
+    td.cell-center {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid currentColor;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .confirmed {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .interpretation {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .hypothesis {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .risk {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .missing {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .code {
+      display: inline-block;
+      padding: 1px 5px;
+      border: 1px solid #d7e2ed;
+      border-radius: 4px;
+      background: var(--code-bg);
+      color: #213040;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+
+    .notice {
+      margin: 14px 0;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .notice p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .notice-risk {
+      border-color: #e8c878;
+      background: var(--amber-soft);
+    }
+
+    .notice-missing {
+      border-color: #efb7bf;
+      background: var(--red-soft);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .plain-box {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .plain-box h3 {
+      margin-top: 0;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .source-item {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      font-size: 13px;
+    }
+
+    .source-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 12px;
+    }
+
+    footer {
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        padding: 18px 14px 36px;
+      }
+
+      .report-header {
+        padding: 22px;
+      }
+
+      .meta-grid,
+      .logic-flow,
+      .split,
+      .source-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 18px;
+      }
+    }
+
+    @media print {
+      body,
+      html {
+        background: #fdfefe;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .report-header,
+      section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="report-header">
+      <p class="eyebrow">2027 ICLR 연구 진행 보고 · 2026.05.13 KST</p>
+      <h1>Optimizer-Induced Geometry Regimes for Feature-Based Uncertainty</h1>
+      <div class="meta-grid" aria-label="보고서 메타 정보">
+        <div class="meta-item">
+          <span class="meta-label">현재 프로젝트 위치</span>
+          <span class="meta-value">NeurIPS 2026 결과를 ICLR 2027 optimizer-geometry 연구로 확장</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">현재 근거</span>
+          <span class="meta-value">문헌/기존 논문 근거 + 2 epoch smoke pipeline validation</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">주요 실험 축</span>
+          <span class="meta-value">optimizer choice, weight-decay coupling, NC/feature geometry, OOD detector</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">앞으로 할 일</span>
+          <span class="meta-value">200 epoch matched-protocol sweep와 multi-seed 결과</span>
+        </div>
+      </div>
+    </header>
+
+    <section id="question">
+      <div class="section-heading">
+        <span class="section-number">1</span>
+        <h2>연구 배경과 현재 질문</h2>
+      </div>
+      <p class="lead">
+        기존 NeurIPS 2026 작업은 optimizer가 output-level reliability와 feature-based uncertainty를 서로 다르게 움직일 수 있음을 보였다.
+        ICLR 2027 확장은 이 관찰을 SAM-family에서 optimizer family와 weight-decay coupling 축으로 넓히는 방향이다.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <colgroup>
+            <col style="width: 15%;">
+            <col style="width: 44%;">
+            <col style="width: 11%;">
+            <col style="width: 30%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>층위</th>
+              <th>현재 의미</th>
+              <th>근거 상태</th>
+              <th>보고서에서의 취급</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NeurIPS 2026 출발점</td>
+              <td>SAM은 accuracy/calibration 또는 MSP/Energy를 유지·개선하면서 Mahalanobis/DDU 같은 feature-based detector를 악화시킬 수 있다.</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td>기존 논문 결과로 두고, ICLR의 직접 실험 결과와 섞지 않는다.</td>
+            </tr>
+            <tr>
+              <td>선행연구 연결점</td>
+              <td>optimizer choice와 coupled/decoupled weight decay가 Neural Collapse 및 representation geometry에 영향을 준다.</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td>optimizer -> geometry 축의 근거로 사용한다.</td>
+            </tr>
+            <tr>
+              <td>ICLR 2027 질문</td>
+              <td>optimizer-induced geometry regime이 Mahalanobis, DDU/GMM, kNN 같은 feature-based OOD detector의 성공과 실패를 어떻게 바꾸는가?</td>
+              <td class="cell-status"><span class="status hypothesis">가설</span></td>
+              <td>full-scale 실험으로 검증할 중심 질문으로 둔다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="logic">
+      <div class="section-heading">
+        <span class="section-number">2</span>
+        <h2>논리 구조</h2>
+      </div>
+      <p>
+        이 프로젝트의 논리는 optimizer를 성능 비교 항목으로만 보지 않고, 마지막 표현층 기하구조를 만드는 개입으로 본다는 점에 있다.
+      </p>
+
+      <div class="logic-flow" aria-label="연구 논리 흐름">
+        <div class="flow-cell">
+          <span class="flow-label">STEP 1</span>
+          <span class="flow-title">Optimizer choice / WD coupling</span>
+          <span class="flow-copy">SGD, Adam, AdamW, SAM-family, 그리고 custom coupled-decoupled interpolation.</span>
+        </div>
+        <div class="flow-cell">
+          <span class="flow-label">STEP 2</span>
+          <span class="flow-title">Feature geometry / NC regime</span>
+          <span class="flow-copy">within-class compactness, class separation, NC0-NC4, covariance spectrum, feature norm.</span>
+        </div>
+        <div class="flow-cell">
+          <span class="flow-label">STEP 3</span>
+          <span class="flow-title">Detector behavior</span>
+          <span class="flow-copy">Mahalanobis, Mahalanobis-L2, kNN, GMM/DDU, NC-inspired and hybrid detector families.</span>
+        </div>
+        <div class="flow-cell">
+          <span class="flow-label">STEP 4</span>
+          <span class="flow-title">Paper-level claim</span>
+          <span class="flow-copy">Neural Collapse is not a scalar reliability certificate. Detector-relevant geometry must be decomposed.</span>
+        </div>
+      </div>
+
+      <div class="notice">
+        <strong>논리의 핵심 분리</strong>
+        <p>
+          선행연구는 optimizer -> Neural Collapse/geometry를 뒷받침한다. 이 프로젝트가 새로 검증해야 하는 부분은 geometry -> downstream uncertainty detector behavior이다.
+        </p>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-heading">
+        <span class="section-number">3</span>
+        <h2>현재까지 확보된 근거</h2>
+      </div>
+      <p>
+        현재 근거는 네 층으로 나뉜다. 기존 논문 결과, 외부 문헌 근거, 로컬/서버 pipeline 검증, 그리고 아직 ICLR 실험으로 검증해야 할 가설이다.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>현재 상태</th>
+              <th>근거</th>
+              <th>아직 부족한 점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SAM에서 output-level reliability와 feature-based OOD가 분리될 수 있음</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td><span class="code">소스/neurips2026_paper_context.md</span></td>
+              <td>ICLR에서는 SAM-family를 넘어 optimizer family 전체로 확장해야 한다.</td>
+            </tr>
+            <tr>
+              <td>optimizer choice와 WD coupling이 NC/geometry에 영향을 줌</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td><span class="code">소스/SRC-arxiv-2602.16642-v3.md</span>, <span class="code">소스/INDEX.md</span></td>
+              <td>이 문헌은 Mahalanobis, DDU, kNN 결과를 직접 검증하지 않는다.</td>
+            </tr>
+            <tr>
+              <td>M1A/M1B smoke pipeline이 train -> cache -> eval -> manifest까지 동작함</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td><span class="code">reports/M1_SMOKE_STATUS_2026-05-13.md</span>, 9개 run manifest</td>
+              <td>2 epoch smoke validation이므로 논문 evidence가 아니다.</td>
+            </tr>
+            <tr>
+              <td>custom <span class="code">adam_coupled_decoupled</span> axis의 endpoint semantics</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td><span class="code">reports/OPTIMIZER_ENDPOINT_SEMANTICS_2026-05-13.md</span></td>
+              <td>endpoint full-training trajectory equality는 주장하지 않는다.</td>
+            </tr>
+            <tr>
+              <td>feature-based detector와 geometry metric contract</td>
+              <td class="cell-status"><span class="status confirmed">확정</span></td>
+              <td><span class="code">reports/METRIC_DEFINITIONS.md</span></td>
+              <td>200 epoch runs에서 모든 output file이 contract대로 생성되어야 한다.</td>
+            </tr>
+            <tr>
+              <td>optimizer-induced geometry가 downstream detector 결과를 설명한다는 ICLR 중심 주장</td>
+              <td class="cell-status"><span class="status hypothesis">가설</span></td>
+              <td>NeurIPS prior + optimizer/NC source가 논리적 간극을 형성</td>
+              <td>matched-protocol, multi-seed, full training 결과가 필요하다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notice notice-missing">
+        <strong>로컬 checkout 기준 주의</strong>
+        <p>
+          현재 Git-tracked checkout의 <span class="code">results/raw</span>에는 <span class="code">.gitkeep</span>만 보인다. 이 보고서는 raw metric JSON을 직접 재계산한 것이 아니라, manifest와 이미 작성된 smoke status report를 근거로 정리한다.
+        </p>
+      </div>
+    </section>
+
+    <section id="today">
+      <div class="section-heading">
+        <span class="section-number">4</span>
+        <h2>오늘 진행한 작업</h2>
+      </div>
+      <p>
+        5월 13일 작업의 중심은 연구 논리와 실험 pipeline을 분리해 정리하고, 다음 full-scale sweep으로 넘어갈 수 있는 최소 운영 조건을 확인한 것이다.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>작업</th>
+              <th>확인한 내용</th>
+              <th>전체 논리에서의 의미</th>
+              <th>다음 확인</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>M1A smoke pipeline 정리</td>
+              <td>CIFAR-10, <span class="code">standard_cifar_resnet18</span>, SGD, seed 0, 2 epoch run이 train/cache/eval/check를 통과했다.</td>
+              <td>서버에서 최소 실험 파이프라인이 작동한다는 운영 근거다.</td>
+              <td>200 epoch matched-protocol config로 확장한다.</td>
+            </tr>
+            <tr>
+              <td>M1B optimizer endpoint validation 정리</td>
+              <td>Adam, AdamW, custom r=0, custom r=1 smoke runs가 local-curie와 host <span class="code">101</span>에서 manifest로 등록됐다.</td>
+              <td>AdamW-to-Adam interpolation axis를 실험 pipeline에 연결할 수 있다.</td>
+              <td>r in {0.0, 0.25, 0.5, 0.75, 1.0} sweep 설계를 고정한다.</td>
+            </tr>
+            <tr>
+              <td>metric naming contract 확인</td>
+              <td><span class="code">nc0_width_norm</span>, <span class="code">inter_dist_l2</span>, <span class="code">nc3_self_duality</span> 등 revised names를 사용해야 한다.</td>
+              <td>legacy metric name 혼동을 줄이고, 보고서와 evaluator output을 맞출 수 있다.</td>
+              <td>full run evaluator output에서 contract를 자동 점검한다.</td>
+            </tr>
+            <tr>
+              <td>architecture boundary 확인</td>
+              <td>main evidence는 <span class="code">standard_cifar_resnet18</span>와 <span class="code">standard_wrn_28_10_dropout03</span>, no SN/no mod를 기준으로 둔다.</td>
+              <td>DDU-specific architecture confound를 main claim에서 분리한다.</td>
+              <td>DDU-style SN/mod는 appendix diagnostic로만 설계한다.</td>
+            </tr>
+            <tr>
+              <td>보고 산출물 품질 기준 분리</td>
+              <td><span class="code">PRODUCT.md</span>와 <span class="code">DESIGN.md</span>가 HTML report 품질과 일관성에만 적용되도록 루트에 추가됐다.</td>
+              <td>보고서 포맷은 정교해지되 연구 해석 기준은 source/metric/manifest 문서가 유지한다.</td>
+              <td>이 HTML 보고서를 첫 적용 사례로 검증한다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="interpretation">
+      <div class="section-heading">
+        <span class="section-number">5</span>
+        <h2>현재 해석과 남은 불확실성</h2>
+      </div>
+      <p>
+        지금 단계에서 말할 수 있는 것은 논문 결론이 아니라 연구 설계의 타당성과 pipeline 준비 상태다. 해석은 다음처럼 제한해 두는 것이 안전하다.
+      </p>
+
+      <div class="split">
+        <div class="plain-box">
+          <h3>현재 해석</h3>
+          <ul class="compact-list">
+            <li><span class="status interpretation">해석</span> ICLR story는 NeurIPS prior와 optimizer/NC source 사이의 빈 공간에 놓인다.</li>
+            <li><span class="status interpretation">해석</span> AdamW-to-Adam interpolation은 accuracy만이 아니라 geometry와 detector behavior를 함께 볼 수 있는 가장 선명한 축이다.</li>
+            <li><span class="status interpretation">해석</span> DDU만으로 feature-based uncertainty를 대표하지 말고 Mahalanobis, kNN, tied/diag/shrinkage GMM, L2-normalized controls를 같이 봐야 한다.</li>
+          </ul>
+        </div>
+        <div class="plain-box">
+          <h3>남은 불확실성</h3>
+          <ul class="compact-list">
+            <li><span class="status missing">누락</span> 200 epoch, multi-seed, matched-protocol 결과가 아직 없다.</li>
+            <li><span class="status risk">위험</span> smoke accuracy 차이는 pipeline sanity check일 뿐 optimizer 우열 근거가 아니다.</li>
+            <li><span class="status risk">위험</span> custom endpoint는 one-step semantics가 확인됐지만 PyTorch Adam/AdamW full trajectory clone으로 쓰면 안 된다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>M1 smoke metric table</h3>
+      <p>
+        아래 값은 pipeline validation table이다. 정확도 자체를 paper-level performance로 해석하지 않는다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>run group</th>
+              <th>source</th>
+              <th>optimizer</th>
+              <th>coupled ratio</th>
+              <th>ID test accuracy</th>
+              <th>해석 제한</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>M1A</td>
+              <td class="cell-center"><span class="code">101</span></td>
+              <td class="cell-center"><span class="code">sgd</span></td>
+              <td class="cell-center">n/a</td>
+              <td class="cell-center">0.5275999903678894</td>
+              <td>2 epoch smoke only</td>
+            </tr>
+            <tr>
+              <td>M1B</td>
+              <td class="cell-center">local-curie / <span class="code">101</span></td>
+              <td class="cell-center"><span class="code">adam</span></td>
+              <td class="cell-center">n/a</td>
+              <td class="cell-center">0.7027999758720398</td>
+              <td>pipeline validation only</td>
+            </tr>
+            <tr>
+              <td>M1B</td>
+              <td class="cell-center">local-curie / <span class="code">101</span></td>
+              <td class="cell-center"><span class="code">adamw</span></td>
+              <td class="cell-center">n/a</td>
+              <td class="cell-center">0.7103000283241272</td>
+              <td>pipeline validation only</td>
+            </tr>
+            <tr>
+              <td>M1B</td>
+              <td class="cell-center">local-curie / <span class="code">101</span></td>
+              <td class="cell-center"><span class="code">adam_coupled_decoupled</span></td>
+              <td class="cell-center">0.0</td>
+              <td class="cell-center">0.7172999978065491</td>
+              <td>AdamW-style endpoint of custom axis</td>
+            </tr>
+            <tr>
+              <td>M1B</td>
+              <td class="cell-center">local-curie / <span class="code">101</span></td>
+              <td class="cell-center"><span class="code">adam_coupled_decoupled</span></td>
+              <td class="cell-center">1.0</td>
+              <td class="cell-center">0.6988999843597412</td>
+              <td>Adam-style endpoint of custom axis</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="next">
+      <div class="section-heading">
+        <span class="section-number">6</span>
+        <h2>다음 작업 계획</h2>
+      </div>
+      <p>
+        다음 단계는 “돌아가는 코드”에서 “논문 근거가 될 수 있는 controlled experiment”로 넘어가는 것이다. 우선순위는 작은 범위의 matched-protocol sweep을 정확하게 고정하는 데 있다.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>작업</th>
+              <th>완료 조건</th>
+              <th>확인해야 할 리스크</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>CIFAR-10, <span class="code">standard_cifar_resnet18</span>, 200 epoch matched-protocol configs 작성</td>
+              <td>SGD, SGDW, Adam, AdamW, custom r grid configs가 같은 metric contract를 공유한다.</td>
+              <td>optimizer별 LR policy와 weight decay policy가 비교 가능해야 한다.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>server allocation 결정</td>
+              <td><span class="code">101</span>, <span class="code">175</span>, <span class="code">138</span> 중 run 분배와 branch/commit이 고정된다.</td>
+              <td>dirty worktree 상태에서 paper-evidence run을 시작하지 않는다.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>first sweep 실행 후 result import</td>
+              <td>raw metrics/log/config snapshots와 <span class="code">results/manifests/*.json</span>가 함께 확보된다.</td>
+              <td>checkpoint/cache copy policy를 manifest에 명확히 기록한다.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>geometry-detector table 생성</td>
+              <td>accuracy/calibration, logit OOD, feature OOD, geometry metric이 같은 run ID로 연결된다.</td>
+              <td>legacy metric names와 revised metric names가 섞이지 않게 한다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="glossary">
+      <div class="section-heading">
+        <span class="section-number">7</span>
+        <h2>용어</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>용어</th>
+              <th>짧은 설명</th>
+              <th>이 연구에서의 역할</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Neural Collapse</td>
+              <td>학습 후반에 class feature와 classifier geometry가 특정 단순 구조로 수렴하는 현상.</td>
+              <td>optimizer가 만드는 representation geometry를 분해해서 보는 핵심 언어다.</td>
+            </tr>
+            <tr>
+              <td><span class="code">NC1</span></td>
+              <td>within-class variability collapse. 낮을수록 class 내부 feature가 더 조밀하다는 뜻으로 읽는다.</td>
+              <td>Mahalanobis/DDU/kNN이 선호할 수 있는 compactness 축이다.</td>
+            </tr>
+            <tr>
+              <td>Coupled vs decoupled weight decay</td>
+              <td>weight decay가 Adam moment 계산 안에 들어가는지, AdamW처럼 update와 분리되는지의 차이.</td>
+              <td>AdamW-to-Adam interpolation의 직접 조작 변수다.</td>
+            </tr>
+            <tr>
+              <td>Mahalanobis</td>
+              <td>class mean과 covariance precision을 이용해 feature가 ID class에 가까운지 보는 detector.</td>
+              <td>feature covariance와 class compactness 변화에 민감하다.</td>
+            </tr>
+            <tr>
+              <td>DDU/GMM</td>
+              <td>class-wise Gaussian density로 feature-space likelihood를 계산하는 detector family.</td>
+              <td>covariance estimation 방식이 결과에 섞일 수 있어 tied/diag/shrinkage controls가 필요하다.</td>
+            </tr>
+            <tr>
+              <td>kNN</td>
+              <td>ID train feature set에서 가까운 이웃까지의 거리를 이용하는 non-parametric detector.</td>
+              <td>Gaussian assumption 없이 feature geometry 영향을 확인하는 비교축이다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="section-heading">
+        <span class="section-number">8</span>
+        <h2>확인한 파일과 근거 경계</h2>
+      </div>
+      <p>
+        이 보고서는 문헌/프로젝트 맥락 문서와 smoke status 문서를 기반으로 작성했다. local raw result JSON을 직접 열어 재분석한 보고가 아니다.
+      </p>
+      <div class="source-grid">
+        <div class="source-item">
+          <strong>프로젝트 맥락</strong>
+          <span class="code">AI_CONTEXT.md</span>, <span class="code">AGENTS.md</span>
+        </div>
+        <div class="source-item">
+          <strong>문헌 및 source boundary</strong>
+          <span class="code">소스/INDEX.md</span>, <span class="code">소스/neurips2026_paper_context.md</span>, <span class="code">소스/SRC-arxiv-2602.16642-v3.md</span>
+        </div>
+        <div class="source-item">
+          <strong>실험 및 metric contract</strong>
+          <span class="code">reports/METRIC_DEFINITIONS.md</span>, <span class="code">reports/ARCHITECTURE_REFERENCES.md</span>
+        </div>
+        <div class="source-item">
+          <strong>5월 13일 smoke 상태</strong>
+          <span class="code">reports/M1_SMOKE_STATUS_2026-05-13.md</span>, <span class="code">reports/OPTIMIZER_ENDPOINT_SEMANTICS_2026-05-13.md</span>
+        </div>
+        <div class="source-item">
+          <strong>run registration</strong>
+          <span class="code">results/manifests/*.json</span>, 9개 M1A/M1B smoke manifests
+        </div>
+        <div class="source-item">
+          <strong>보고서 품질 컨텍스트</strong>
+          <span class="code">PRODUCT.md</span>, <span class="code">DESIGN.md</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Generated as an impeccable HTML report artifact. Research claims remain governed by source, metric, manifest, and raw-result documents.
+    </footer>
+  </main>
+</body>
+</html>

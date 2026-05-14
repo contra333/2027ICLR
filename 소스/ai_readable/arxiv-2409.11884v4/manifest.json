@@ -1,0 +1,46 @@
+{
+  "source_id": "arxiv-2409.11884v4",
+  "title": "Out-of-Distribution Detection: A Task-Oriented Survey of Recent Advances",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "2409.11884v4",
+  "original_path": "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Out-of-Distribution Detection_ A Task-Oriented Survey of Recent Advances.pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "7bb3e87a273d92064383e3f2b0a5f5f3ed16487f41c44c9f0201da5173beea98"
+  },
+  "pdf_pages": 35,
+  "derived_files": [
+    "소스/ai_readable/arxiv-2409.11884v4/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-2409.11884v4/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-2409.11884v4/AI_README.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\Out-of-Distribution Detection_ A Task-Oriented Survey of Recent Advances.pdf",
+      "소스/ai_readable/arxiv-2409.11884v4/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-2409.11884v4/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-2409.11884v4/AI_README.md"
+    ],
+    "secondary": []
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "error",
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\.agents\\skills\\alphaxiv-paper-lookup\\scripts\\fetch_alphaxiv.py\", line 38, in <module>\n    print(fetch(url))\nUnicodeEncodeError: 'cp949' codec can't encode character '\\u2014' in position 4660: illegal multibyte sequence\n"
+    },
+    {
+      "mode": "fulltext",
+      "status": "error",
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\.agents\\skills\\alphaxiv-paper-lookup\\scripts\\fetch_alphaxiv.py\", line 38, in <module>\n    print(fetch(url))\nUnicodeEncodeError: 'cp949' codec can't encode character '\\u2217' in position 179: illegal multibyte sequence\n"
+    }
+  ],
+  "unsupported_boundary": "Use as survey/taxonomy context, not as direct proof for optimizer-induced Neural Collapse or detector failure in this project.",
+  "created_at": "2026-05-13T17:01:27+09:00",
+  "updated_at": "2026-05-13T17:01:27+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place; alphaXiv files are navigation aids only."
+}

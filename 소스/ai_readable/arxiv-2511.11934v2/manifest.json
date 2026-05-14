@@ -1,0 +1,46 @@
+{
+  "source_id": "arxiv-2511.11934v2",
+  "title": "A Systematic Analysis of Out-of-Distribution Detection Under Representation and Training Paradigm Shifts",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "2511.11934v2",
+  "original_path": "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\A Systematic Analysis of Out-of-Distribution Detection Under Representation and Training Paradigm Shifts.pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "5009be4302d8ba78093adabb3c26de8b0f4af5d0552ca5ea8a01294c46ca7994"
+  },
+  "pdf_pages": 29,
+  "derived_files": [
+    "소스/ai_readable/arxiv-2511.11934v2/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-2511.11934v2/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-2511.11934v2/AI_README.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\User\\Desktop\\2027ICLR\\소스\\A Systematic Analysis of Out-of-Distribution Detection Under Representation and Training Paradigm Shifts.pdf",
+      "소스/ai_readable/arxiv-2511.11934v2/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-2511.11934v2/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-2511.11934v2/AI_README.md"
+    ],
+    "secondary": []
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "unavailable",
+      "stdout": "404: resource not available for 2511.11934v2",
+      "stderr": ""
+    },
+    {
+      "mode": "fulltext",
+      "status": "unavailable",
+      "stdout": "404: resource not available for 2511.11934v2",
+      "stderr": ""
+    }
+  ],
+  "unsupported_boundary": "Use as context for representation/training paradigm effects on OOD detection, not as direct proof that optimizer choice causes Neural Collapse regimes or Mahalanobis/DDU failure in this repository.",
+  "created_at": "2026-05-13T17:01:27+09:00",
+  "updated_at": "2026-05-13T17:01:27+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place; alphaXiv files are navigation aids only."
+}

@@ -673,7 +673,7 @@ Local project files:
 - Legacy local code checked for current conventions: `C:\Users\User\Desktop\ICML+통계학회(연구)\DDU_fork-main\evaluate_v2.py`
 - Legacy local code checked for geometry formulas: `C:\Users\User\Desktop\ICML+통계학회(연구)\DDU_fork-main\utils\geometry.py`
 - Legacy local code checked for OOD score signs: `C:\Users\User\Desktop\ICML+통계학회(연구)\DDU_fork-main\utils\ood_scores.py`
-- Optimizer/NC paper page evidence for NC0/NC1/NC2/NC2W/NC2M/NC3/NC4 definitions: `소스/paper_pdf_pages.md`
+- Optimizer/NC paper page evidence for NC0/NC1/NC2/NC2W/NC2M/NC3/NC4 definitions: `소스/ai_readable/arxiv-2602.16642v3/paper_pdf_pages.md`
 - ViM page evidence for virtual logit and native OOD probability: `소스/ai_readable/arxiv-2203.10807v1/paper_pdf_pages.md`
 - OpenOOD page evidence for AUROC/AUPR/FPR@95 evaluation context: `소스/ai_readable/arxiv-2306.09301v5/paper_pdf_pages.md`
 - NECO page evidence for `NECO(x) = ||P h(x)|| / ||h(x)||` and MaxLogit calibration: `소스/ai_readable/arxiv-2310.06823v3/paper_pdf_pages.md`

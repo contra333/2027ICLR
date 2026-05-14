@@ -21,7 +21,7 @@ Neural Collapse Is Not One Geometry: Optimizer-Dependent Collapse Regimes and Th
 - `소스/2027_ICLR_실험레포설계.md`: main planning document for the ICLR project and experiment roadmap.
 - `소스/neurips2026_paper_context.md`: AI-readable context for the user's NeurIPS 2026 submission.
 - `소스/0_neurips_2026.pdf`: original NeurIPS 2026 paper PDF copy.
-- `소스/GPT_PROJECT_SOURCE_GUIDE.md`, `소스/SRC-arxiv-2602.16642-v3.md`, `소스/context_manifest.json`, `소스/paper_pdf_pages.md`, `소스/paper.pdf`: source package for `Optimizer choice matters for the emergence of Neural Collapse`.
+- `소스/paper.pdf` and `소스/ai_readable/arxiv-2602.16642v3/`: original PDF and AI-readable source package for `Optimizer choice matters for the emergence of Neural Collapse`.
 - `AGENTS.md`: root AI operating rules.
 - `소스/INDEX.md`: source inventory and evidence boundaries.
 - `ops/`: multi-server Git, server run, and result-sync operating instructions.
