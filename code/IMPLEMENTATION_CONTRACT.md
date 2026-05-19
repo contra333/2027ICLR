@@ -126,9 +126,11 @@ Do not silently change this policy between runs.
 Keep these protocols separate:
 
 - `matched_protocol`: same dataset, architecture, augmentation, epoch budget, schedule, seed set, and total WD; change only the intended optimizer axis.
-- `tuned_protocol`: optimizer LR/WD grid is predeclared and selected by ID validation accuracy, NLL, or ECE only.
+- `matched_protocol` may use a canonical optimizer-family anchor, such as the WRN350 SGD Nesterov baseline. This does not mean every optimizer uses the same numerical LR, and it does not claim the anchor was ID-validation tuned.
+- `tuned_protocol` / `ID-tuned protocol`: optimizer LR/WD grid is predeclared and selected by ID validation accuracy, NLL, or ECE only.
+- If Adam or AdamW is selected by ID validation, include SGD in the same ID-tuned protocol layer with a comparable predeclared search budget. Do not compare ID-tuned adaptive optimizers against an untuned matched SGD anchor as the same condition.
 
-Never tune optimizer or detector hyperparameters using OOD test AUROC.
+Never tune optimizer or detector hyperparameters using OOD test AUROC, AUPR, or FPR95.
 
 Default first budgets:
 

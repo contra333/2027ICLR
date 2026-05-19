@@ -9,7 +9,9 @@
 - Before adding server training configs, read `ops/SERVER_CLONE_TO_FIRST_RUN.md`, `code/IMPLEMENTATION_CONTRACT.md`, and `code/models/ARCHITECTURE_CONTRACT.md`.
 - Do not change dataset, architecture, optimizer, seed, weight decay, schedule, rho, feature layer, OOD dataset, detector, or preprocessing unless the task asks for it.
 - When adding a config, make the experiment purpose clear in the filename or header.
-- Keep matched-protocol and tuned-protocol configs separate.
+- Keep matched-protocol and ID-tuned/tuned-protocol configs separate in filenames, run IDs, and comments.
+- If adding ID-tuned Adam/AdamW configs, include the corresponding SGD ID-tuned candidates in the same protocol layer or explicitly document why that layer is not being compared to SGD.
+- Do not encode optimizer or detector settings selected from OOD AUROC/AUPR/FPR95; hyperparameter selection must be fixed in advance or use ID validation only.
 - Keep main standard-architecture configs separate from DDU-style diagnostic configs.
 - For ViT configs, record whether weight decay applies to all params or excludes LayerNorm/bias.
 

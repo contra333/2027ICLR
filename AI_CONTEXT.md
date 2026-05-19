@@ -128,7 +128,7 @@ Endpoint interpretation note:
 
 ### May 19 WRN350 training/evaluation preparation
 
-Status: code prepared locally for the first paper-scale WRN anchor, but no 350 epoch run has been launched from this repo yet.
+Status: code prepared locally for the first paper-scale WRN anchor. Server-side SGD Nesterov seed0/seed1/seed2 progress is tracked in `tasks/wrn350_sgd_nesterov_seed0_training_plan.md`; do not treat any metric as confirmed until post-hoc evaluation and a result manifest exist.
 
 Implemented or updated:
 
@@ -148,10 +148,25 @@ Validation already run on the May 19 code before pushing:
 
 Current execution recommendation:
 
-1. Push or pull the May 19 code on a GPU server with free capacity.
-2. Prepare datasets under `${HOME}/datasets` before full config execution. CIFAR-10, CIFAR-100, SVHN, and MNIST use torchvision download paths, but TinyImageNet is an ImageFolder-style dataset and must exist at `${HOME}/datasets/tiny-imagenet-200/val` unless the config is changed.
-3. Run only the SGD seed0 WRN350 anchor first. Complete train -> cache extraction -> post-hoc eval -> `smoke_checks.py --check run-dir` before expanding to Adam/AdamW/coupled-decoupled sweeps.
-4. Do not tune detector or optimizer hyperparameters on OOD test metrics. Use fixed config or ID validation only.
+1. Read `tasks/wrn350_sgd_nesterov_seed0_training_plan.md` before touching WRN350 optimizer configs or server queues.
+2. Confirm SGD seed0/seed1/seed2 training status before launching Adam/AdamW or coupled-decoupled runs on the same GPU.
+3. Prepare datasets under `${HOME}/datasets` before full config execution. CIFAR-10, CIFAR-100, SVHN, and MNIST use torchvision download paths, but TinyImageNet is an ImageFolder-style dataset and must exist at `${HOME}/datasets/tiny-imagenet-200/val` unless the config is changed.
+4. Complete train -> cache extraction -> post-hoc eval -> `smoke_checks.py --check run-dir` -> `results/manifests/*.json` before calling any WRN350 metric confirmed.
+
+### WRN350 optimizer protocol decision
+
+Current decision:
+
+- Use the current WRN350 CIFAR-10 SGD Nesterov setting as the `matched_protocol` anchor: WRN-28-10 dropout 0.3, 350 epochs, milestones `[150, 250]`, `lr: 0.1`, `momentum: 0.9`, `nesterov: true`, `weight_decay: 5.0e-4`, and `weight_decay_policy: weights_only_no_bias_norm`.
+- This SGD anchor is a canonical WRN-style baseline, not a claim that SGD was ID-validation tuned or globally optimal for this repository.
+- In the matched protocol, keep dataset, architecture, augmentation, epoch budget, schedule, seed policy, total weight decay, OOD datasets, detector/geometry config, and weight-decay policy fixed while changing the intended optimizer axis.
+- Matched protocol does not require identical numerical learning rates across optimizer families; SGD and Adam-family optimizers use different stable LR scales.
+- Do not reuse the old M1B smoke-test Adam/AdamW `lr: 1.0e-3` as a definitive WRN350 main-experiment value.
+- Keep Adam/AdamW/coupled-axis `matched_protocol` runs separate from `ID-tuned protocol` runs.
+- If Adam or AdamW hyperparameters are selected by ID validation, include SGD in the same ID-tuned protocol layer with a predeclared SGD grid. Do not compare tuned Adam/AdamW against the untuned matched SGD anchor as if they were the same protocol.
+- Select ID-tuned optimizer hyperparameters using ID validation only, such as validation accuracy, NLL, or ECE. Never choose optimizer or detector hyperparameters using OOD AUROC, AUPR, or FPR95.
+- Keep PyTorch `adam` and `adamw` as named baseline optimizers, and use `adam_coupled_decoupled` as the controlled coupling axis.
+- Interpret `adam_coupled_decoupled` `r=0.0` and `r=1.0` as AdamW-style and Adam-style endpoints of the custom controlled optimizer. Do not claim full-training bitwise identity with PyTorch `AdamW` or `Adam`.
 
 May 19 server observation:
 
