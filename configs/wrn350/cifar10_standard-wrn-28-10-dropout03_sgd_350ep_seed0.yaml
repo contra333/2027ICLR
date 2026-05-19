@@ -1,28 +1,40 @@
 run:
   project: iclr2027
-  protocol: m1b_smoke_optimizer_endpoint
+  protocol: wrn_350_epoch_sweep
   seed: 0
   output_root: ${HOME}/iclr2027_runs
 
 data:
   id_dataset: cifar10
   root: ${HOME}/datasets
+  tiny_imagenet_root: ${HOME}/datasets/tiny-imagenet-200/val
   val_fraction: 0.1
   split_seed: 0
+  split:
+    type: stratified
   batch_size: 128
   eval_batch_size: 256
   num_workers: 4
   pin_memory: true
-  normalization: cifar10
+  normalization: id_dataset
+  image_size: 32
   train_augmentation:
     random_crop: 32
     padding: 4
     horizontal_flip: true
   ood_datasets:
-    - svhn
+    - name: cifar100
+      dataset: cifar100
+    - name: tiny_imagenet
+      dataset: tiny_imagenet
+      root: ${HOME}/datasets/tiny-imagenet-200/val
+    - name: svhn
+      dataset: svhn
+    - name: mnist
+      dataset: mnist
 
 model:
-  name: standard_cifar_resnet18
+  name: standard_wrn_28_10_dropout03
   num_classes: 10
   architecture_style: standard
   spectral_norm:
@@ -32,25 +44,26 @@ model:
   feature_layer: pre_classifier_flattened_pool_output
 
 optimizer:
-  name: adamw
-  lr: 1.0e-3
-  beta1: 0.9
-  beta2: 0.999
-  eps: 1.0e-8
+  name: sgd
+  lr: 0.1
+  momentum: 0.9
   weight_decay: 5.0e-4
+  nesterov: false
   weight_decay_policy: weights_only_no_bias_norm
 
 scheduler:
   name: multistep
-  milestones: [1]
+  milestones: [150, 250]
   gamma: 0.1
 
 train:
-  epochs: 2
+  epochs: 350
   loss: cross_entropy
   save_final: true
-  save_best_val: false
-  save_every_epochs: 0
+  save_best_val: true
+  best_val_metric: accuracy
+  best_val_mode: max
+  save_every_epochs: 50
 
 eval:
   cache_splits:
@@ -91,6 +104,7 @@ eval:
       - effective_rank
       - condition_number_clipped
       - covariance_eigenspectrum
+    nc_hybrid: []
   knn:
     k: 50
   gmm_shrinkage:

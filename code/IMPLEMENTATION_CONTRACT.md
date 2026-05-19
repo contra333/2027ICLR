@@ -1,6 +1,6 @@
 # ICLR 2027 Code Implementation Contract
 
-Last updated: 2026-05-12 KST
+Last updated: 2026-05-19 KST
 
 ## Core decision
 
@@ -140,8 +140,9 @@ Default first budgets:
 
 Each training run should write:
 
-- `checkpoint_final.pt`
-- `checkpoint_best_val.pt` if best-validation checkpoint is enabled
+- `checkpoints/checkpoint_final.pt`
+- `checkpoints/checkpoint_best_val.pt` if best-validation checkpoint is enabled
+- `checkpoints/checkpoint_epoch_XXXX.pt` when periodic checkpointing is enabled
 - `train_metrics.jsonl`
 - `val_metrics.jsonl`
 - `config_snapshot.yaml`
@@ -174,9 +175,9 @@ Implement first:
 
 - classification: `accuracy`, `nll`
 - calibration: `ece_15bin`, `temperature_scaled_ece_15bin`
-- logit: `msp`, `energy_id_score`
-- feature: `mahalanobis`, `mahalanobis_l2`, `knn`, `gmm_ddu_tied`, `gmm_ddu_diag`, `gmm_ddu_shrinkage`
-- geometry: `within_var`, `inter_dist_l2`, `inter_dist_sq`, `nc0_width_norm`, `nc1`, `nc2_mean_cos`, `nc3_self_duality`
+- logit: `msp`, `maxlogit`, `energy_id_score`, `neg_entropy`
+- feature: `mahalanobis`, `mahalanobis_l2`, `knn`, `knn_l2`, `gmm_ddu_tied`, `gmm_ddu_diag`, `gmm_ddu_shrinkage`
+- geometry: `within_var`, `inter_dist_l2`, `inter_dist_sq`, `nc0_width_norm`, `nc0_by_K`, `nc1`, `nc2_mean_etf`, `nc2_mean_cos`, `nc2_weight_etf`, `nc2_product_etf`, `nc3_self_duality`, `nc3_self_duality_raw`, `nc3_cos_alignment`, `nc4_agreement`, `anisotropy_lambda1_trace`, `effective_rank`, `covariance_eigenspectrum`
 
 Do not emit legacy names such as `nc0`, `nc3`, `nc4`, or `inter_dist`.
 

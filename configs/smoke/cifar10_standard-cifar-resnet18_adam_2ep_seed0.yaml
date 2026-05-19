@@ -5,7 +5,7 @@ run:
   output_root: ${HOME}/iclr2027_runs
 
 data:
-  dataset: cifar10
+  id_dataset: cifar10
   root: ${HOME}/datasets
   val_fraction: 0.1
   split_seed: 0
@@ -50,6 +50,7 @@ train:
   loss: cross_entropy
   save_final: true
   save_best_val: false
+  save_every_epochs: 0
 
 eval:
   cache_splits:
@@ -60,11 +61,14 @@ eval:
   detectors:
     logit:
       - msp
+      - maxlogit
       - energy_id_score
+      - neg_entropy
     feature:
       - mahalanobis
       - mahalanobis_l2
       - knn
+      - knn_l2
       - gmm_ddu_tied
       - gmm_ddu_diag
       - gmm_ddu_shrinkage
@@ -73,9 +77,20 @@ eval:
       - inter_dist_l2
       - inter_dist_sq
       - nc0_width_norm
+      - nc0_by_K
       - nc1
+      - nc2_mean_etf
       - nc2_mean_cos
+      - nc2_weight_etf
+      - nc2_product_etf
       - nc3_self_duality
+      - nc3_self_duality_raw
+      - nc3_cos_alignment
+      - nc4_agreement
+      - anisotropy_lambda1_trace
+      - effective_rank
+      - condition_number_clipped
+      - covariance_eigenspectrum
   knn:
     k: 50
   gmm_shrinkage:

@@ -1,3 +1,3 @@
-from .factory import build_model
+from .factory import MODEL_REGISTRY, build_model, get_classifier_state
 
-__all__ = ["build_model"]
+__all__ = ["MODEL_REGISTRY", "build_model", "get_classifier_state"]

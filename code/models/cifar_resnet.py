@@ -60,6 +60,7 @@ class CIFARResNet(nn.Module):
         self.layer4 = self._make_layer(512, layers[3], stride=2)
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512, num_classes)
+        self.feature_dim = 512
         self._init_weights()
 
     def _make_layer(self, planes: int, blocks: int, stride: int) -> nn.Sequential:

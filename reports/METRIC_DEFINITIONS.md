@@ -1,6 +1,6 @@
 # Metric Definitions for ICLR 2027 Evaluation
 
-Last updated: 2026-05-12 KST
+Last updated: 2026-05-19 KST
 
 ## Purpose
 
@@ -50,8 +50,8 @@ Small aggregate summaries can also be produced, but these split files are the so
 
 ### Aggregate metric implementation notes
 
-- AUROC/AUPR tie handling must follow the evaluator library default and be recorded in `detector_params.json` or the evaluator README.
-- `fpr95` threshold interpolation must be recorded. The default is the smallest threshold that reaches ID TPR >= 0.95.
+- AUROC tie handling uses average ranks and AUPR uses stable descending score order; record these rules in `detector_params.json`.
+- `fpr95` uses the project quantile/tie rule: threshold is the 5th percentile of ID scores and samples with score `>= threshold` are accepted as ID. Ties can make realized ID TPR greater than 95%.
 - OOD aggregate metrics are reporting metrics only. Never choose detector hyperparameters by OOD test AUROC, AUPR, or FPR95.
 
 ## Classification Metrics
@@ -119,11 +119,12 @@ Small aggregate summaries can also be produced, but these split files are the so
 - Input: ID-like detector scores for ID test and one OOD test set.
 - Fitting split: none; this is an aggregate metric over stored scores.
 - Labels: ID = 1, OOD = 0.
-- Formula: choose the threshold where ID true positive rate is 95%; report the fraction of OOD samples incorrectly accepted as ID.
+- Formula: set the threshold to the 5th percentile quantile of ID scores; report the fraction of OOD samples with score `>= threshold`.
 - Score direction: lower is better.
 - Output name: `fpr95`.
 - Output value: scalar in `[0, 1]`.
 - Tuning rule: none; threshold is derived from ID test scores for reporting, not selected as a deployment hyperparameter.
+- Tie rule: samples exactly equal to the threshold are accepted as ID, so realized ID TPR can exceed 95%.
 
 ### `aupr_in`
 
@@ -419,18 +420,18 @@ Use ID train features unless a task explicitly asks for ID test geometry. Geomet
 
 - Input: ID train class means.
 - Fitting split: ID train.
-- Formula: average pairwise Euclidean distance between class means.
+- Formula: average pairwise Euclidean distance over off-diagonal class pairs `c < c'`.
 - Score direction: not an OOD score; higher usually means greater class separation.
 - Output name: `inter_dist_l2`.
 - Output value: scalar.
 - Tuning rule: none.
-- Compatibility note: this matches the legacy code path that uses `torch.cdist(..., p=2).mean()`.
+- Compatibility note: this intentionally excludes diagonal self-pairs; do not use legacy all-entry `torch.cdist(...).mean()` wording for new outputs.
 
 ### `inter_dist_sq`
 
 - Input: ID train class means.
 - Fitting split: ID train.
-- Formula: average pairwise squared Euclidean distance between class means.
+- Formula: average pairwise squared Euclidean distance over off-diagonal class pairs `c < c'`.
 - Score direction: not an OOD score; higher usually means greater class separation.
 - Output name: `inter_dist_sq`.
 - Output value: scalar.
@@ -556,7 +557,7 @@ Use ID train features unless a task explicitly asks for ID test geometry. Geomet
 
 - Input: covariance eigenvalues from ID train features.
 - Fitting split: ID train.
-- Formula: `lambda_max(Sigma) / tr(Sigma)` for the chosen covariance, usually class covariance then averaged across classes.
+- Formula: `lambda_max(Sigma) / tr(Sigma)` for the recorded covariance. The current main evaluator uses ID-train within-class covariance `Sigma_W`.
 - Score direction: not an OOD score; higher means more variance concentrated in the leading direction.
 - Output name: `anisotropy_lambda1_trace`.
 - Output value: scalar.
@@ -660,9 +661,10 @@ Old NeurIPS tables, legacy JSON files, or `DDU_fork-main` outputs may contain am
 
 ## Checkpoint Rule
 
-- Main geometry and detector analysis uses the final checkpoint.
-- Best-validation checkpoint may be reported for deployment-style appendix analysis.
-- Always record checkpoint type in the run manifest and metric JSON files.
+- Main geometry and detector analysis uses `checkpoints/checkpoint_final.pt` and cache tag `final`.
+- Best-validation checkpoint may be reported for deployment-style appendix analysis as `checkpoints/checkpoint_best_val.pt` and cache tag `best_val`.
+- Periodic trajectory checkpoints use names such as `checkpoints/checkpoint_epoch_0050.pt` and cache tag `epoch_0050`.
+- Always record checkpoint type/tag in the run manifest and evaluator metadata.
 
 ## Source Anchors
 

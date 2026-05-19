@@ -50,6 +50,13 @@ def aupr_in(id_scores, ood_scores) -> float:
 
 
 def fpr95(id_scores, ood_scores) -> float:
+    """FPR at 95% ID TPR using the project quantile/tie rule.
+
+    Scores are ID-like. The implementation sets the threshold to the
+    5th percentile of ID scores and accepts samples with score >= threshold.
+    With ties this can yield ID TPR greater than 95%; the rule is recorded in
+    detector metadata for reproducibility.
+    """
     pos = _as_numpy(id_scores)
     neg = _as_numpy(ood_scores)
     if len(pos) == 0 or len(neg) == 0:
