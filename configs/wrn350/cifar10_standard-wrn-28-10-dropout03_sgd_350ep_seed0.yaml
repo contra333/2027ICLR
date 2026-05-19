@@ -48,7 +48,7 @@ optimizer:
   lr: 0.1
   momentum: 0.9
   weight_decay: 5.0e-4
-  nesterov: false
+  nesterov: true
   weight_decay_policy: weights_only_no_bias_norm
 
 scheduler:

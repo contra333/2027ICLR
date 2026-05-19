@@ -166,7 +166,7 @@ May 19 server observation:
 - ViT results may be noisier or regime-dependent; CNN controlled evidence should carry the main claim.
 - Pretraining may mask optimizer-induced geometry shifts, which should be framed as a regime finding rather than a failure.
 - Optimizer endpoint interpretation can be confused: PyTorch `AdamW`/`Adam` are baseline anchors, while `adam_coupled_decoupled` endpoints are controlled interpolation endpoints. See `reports/OPTIMIZER_ENDPOINT_SEMANTICS_2026-05-13.md`.
-- The current WRN350 SGD anchor config has `optimizer.nesterov: false`. The May 19 training plan notes that `true` is closer to original WRN practice, while `false` preserves continuity with earlier ResNet smoke settings. Decide before launching the definitive anchor.
+- The WRN350 SGD anchor config now uses `optimizer.nesterov: true`, matching the decision to follow standard WRN-style SGD practice for the definitive anchor. Keep this choice fixed for future SGD-family WRN comparison configs, including SAM-family variants that use SGD as the base optimizer.
 - The May 19 full config includes TinyImageNet as an OOD dataset, but TinyImageNet is not auto-downloaded by the current code. Missing ImageFolder data will block `build_data_bundle`.
 
 ## Next actions
