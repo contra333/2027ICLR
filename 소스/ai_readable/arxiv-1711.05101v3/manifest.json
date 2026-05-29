@@ -1,0 +1,39 @@
+{
+  "source_id": "arxiv-1711.05101v3",
+  "title": "Decoupled Weight Decay Regularization",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "1711.05101v3",
+  "original_path": "C:\\Users\\jin\\Desktop\\2027ICLR\\소스\\DECOUPLED WEIGHT DECAY REGULARIZATION.pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "9d5af48931e773d6983d167e15c06ef594475b751c1f263827f5ed3c7a00d0d8"
+  },
+  "pdf_pages": 19,
+  "derived_files": [
+    "소스/ai_readable/arxiv-1711.05101v3/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-1711.05101v3/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-1711.05101v3/AI_README.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\jin\\Desktop\\2027ICLR\\소스\\DECOUPLED WEIGHT DECAY REGULARIZATION.pdf",
+      "소스/ai_readable/arxiv-1711.05101v3/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-1711.05101v3/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-1711.05101v3/AI_README.md"
+    ],
+    "secondary": []
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "not_attempted",
+      "reason": "Local PDF extraction was sufficient for this ingestion."
+    }
+  ],
+  "unsupported_boundary": "Use as evidence for Adam/AdamW weight-decay coupling semantics, not as direct evidence for feature-based uncertainty detector performance.",
+  "created_at": "2026-05-20T16:15:58+09:00",
+  "updated_at": "2026-05-20T16:15:58+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place."
+}

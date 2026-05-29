@@ -1,6 +1,6 @@
 # 소스/INDEX.md
 
-Last updated: 2026-05-13 KST
+Last updated: 2026-05-20 KST
 
 ## Purpose
 
@@ -17,6 +17,10 @@ Read this file before opening full PDFs or large extracted text.
 | `0_neurips_2026.pdf` | NeurIPS 2026 submitted paper PDF copy | Original visual source for the user's prior paper |
 | `2026NeurIPS주제를 2027ICLR로 발전시킬 교수님디렉션.md` | Professor/project direction note | Project direction and interpretation, not a metric source |
 | `paper.pdf` + `ai_readable/arxiv-2602.16642v3/AI_README.md` | Original PDF and AI-readable source package for arXiv 2602.16642v3 | Optimizer choice / Neural Collapse / representation geometry evidence; not downstream OOD detector evidence |
+| `DECOUPLED WEIGHT DECAY REGULARIZATION.pdf` + `ai_readable/arxiv-1711.05101v3/AI_README.md` | AdamW local PDF and AI-readable source package | Adam/AdamW and coupled/decoupled weight-decay semantics; not downstream OOD detector evidence |
+| `Improving Generalization Performance by Switching from Adam to SGD.pdf` + `ai_readable/arxiv-1712.07628v1/AI_README.md` | SWATS local PDF and AI-readable source package | Adam-SGD comparison precedent in CNN/residual settings; not WRN+OOD direct evidence |
+| `The Marginal Value of Adaptive Gradient Methods in Machine Learning.pdf` + `ai_readable/arxiv-1705.08292v2/AI_README.md` | Adaptive-gradient local PDF and AI-readable source package | Adaptive optimizers can find different solutions/generalization behavior; not NC/OOD direct evidence |
+| `ADAM_ A METHOD FOR STOCHASTIC OPTIMIZATION.pdf` + `ai_readable/arxiv-1412.6980v9/AI_README.md` | Adam local PDF and lightweight AI-readable source package | Adam update equations/mechanics only; not main optimizer-geometry evidence |
 | `A Systematic Analysis of Out-of-Distribution Detection Under Representation and Training Paradigm Shifts.pdf` + `ai_readable/arxiv-2511.11934v2/AI_README.md` | Local PDF and AI-readable source package | Representation/training paradigm shifts in OOD detection; nearby context, not optimizer/NC causality evidence |
 | `Dissecting Out-of-Distribution Detection and Open-Set Recognition_ A Critical Analysis of Methods and Benchmarks.pdf` + `ai_readable/arxiv-2408.16757v2/AI_README.md` | Local PDF and AI-readable source package | OOD/OSR method and benchmark analysis; protocol context |
 | `Generalized Out-of-Distribution Detection and Beyond in Vision Language Model Era_ A Survey.pdf` + `ai_readable/arxiv-2407.21794v2/AI_README.md` | Local PDF and AI-readable source package | Generalized OOD and VLM-era survey context |
@@ -62,6 +66,58 @@ Not directly supported by this paper:
 - Mahalanobis degradation,
 - kNN, DDU, or feature-density detector behavior,
 - causal proof that NC changes cause downstream uncertainty divergence.
+
+### AdamW / decoupled weight decay
+
+Supported by this source package:
+
+- L2 regularization and weight decay are not equivalent for Adam-like adaptive optimizers,
+- AdamW decouples weight decay from the gradient/moment optimization step,
+- Adam and AdamW should be separated when the project studies weight-decay coupling semantics.
+
+Not directly supported by this paper:
+
+- Mahalanobis, DDU/GMM, kNN, Energy, or downstream OOD detector behavior,
+- Neural Collapse or penultimate-feature detector outcomes in this repository.
+
+### SWATS / Adam-to-SGD generalization
+
+Supported by this source package:
+
+- Adam and SGD comparisons have precedent in CNN/residual-family settings,
+- adaptive optimizers can perform well early while SGD-family training can generalize better later,
+- optimizer-family comparisons should respect stable update-scale differences rather than forcing identical numerical learning rates.
+
+Not directly supported by this paper:
+
+- WRN-28-10 plus AdamW or coupled-decoupled results in this repository,
+- Neural Collapse or OOD detector behavior.
+
+### Adaptive optimizer marginal value
+
+Supported by this source package:
+
+- adaptive methods such as Adam, RMSProp, and AdaGrad can find different solutions from GD/SGD,
+- better training performance does not guarantee better generalization,
+- optimizer choice can be viewed as an implicit-bias or solution-selection issue.
+
+Not directly supported by this paper:
+
+- Neural Collapse,
+- feature-based OOD detector behavior,
+- this repository's specific optimizer-to-geometry-to-detector mechanism.
+
+### Adam original paper
+
+Supported by this source package:
+
+- Adam's first-moment, second-raw-moment, bias-correction, and coordinate-wise adaptive update mechanics.
+
+Not directly supported by this paper:
+
+- AdamW or decoupled weight decay,
+- optimizer-induced Neural Collapse or representation geometry,
+- Mahalanobis, DDU/GMM, kNN, Energy, or downstream OOD detector behavior.
 
 ### Mahalanobis++ / feature normalization
 
@@ -181,6 +237,7 @@ Not directly supported by this paper:
 - Project orientation: `AI_CONTEXT.md` -> this index -> `2027_ICLR_실험레포설계.md`.
 - NeurIPS prior-work claim: `neurips2026_paper_context.md` -> `0_neurips_2026.pdf` if exact wording is needed.
 - Neural Collapse optimizer source: `ai_readable/arxiv-2602.16642v3/AI_README.md` -> `ai_readable/arxiv-2602.16642v3/GPT_PROJECT_SOURCE_GUIDE.md` -> `ai_readable/arxiv-2602.16642v3/SRC-arxiv-2602.16642-v3.md` -> `ai_readable/arxiv-2602.16642v3/context_manifest.json` -> targeted `ai_readable/arxiv-2602.16642v3/paper_pdf_pages.md` pages.
+- Adam/AdamW and adaptive-optimizer background: start with `ai_readable/arxiv-1711.05101v3/AI_README.md`, `ai_readable/arxiv-1712.07628v1/AI_README.md`, `ai_readable/arxiv-1705.08292v2/AI_README.md`, or lightweight `ai_readable/arxiv-1412.6980v9/AI_README.md` depending on the claim.
 - OOD/NC detector, survey, and protocol source packages: start with each `ai_readable/arxiv-*/AI_README.md` -> `SOURCE_CARD.md` -> `paper_pdf_pages.md` targeted pages -> original PDF for exact equations/tables/figures.
 - Source ingestion: `소스/AGENTS.md` -> relevant source file -> manifest/source card update -> this index.
 

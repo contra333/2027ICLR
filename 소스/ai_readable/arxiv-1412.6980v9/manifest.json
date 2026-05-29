@@ -1,0 +1,39 @@
+{
+  "source_id": "arxiv-1412.6980v9",
+  "title": "Adam: A Method for Stochastic Optimization",
+  "source_type": "arXiv paper local PDF source package",
+  "arxiv_id": "1412.6980v9",
+  "original_path": "C:\\Users\\jin\\Desktop\\2027ICLR\\소스\\ADAM_ A METHOD FOR STOCHASTIC OPTIMIZATION.pdf",
+  "checksum": {
+    "algorithm": "sha256",
+    "value": "eab9c73ae2ceda884b94830bda99312254bac4806f6c9f045cbab90721ecda31"
+  },
+  "pdf_pages": 15,
+  "derived_files": [
+    "소스/ai_readable/arxiv-1412.6980v9/paper_pdf_pages.md",
+    "소스/ai_readable/arxiv-1412.6980v9/SOURCE_CARD.md",
+    "소스/ai_readable/arxiv-1412.6980v9/AI_README.md"
+  ],
+  "evidence_tier": {
+    "primary": [
+      "C:\\Users\\jin\\Desktop\\2027ICLR\\소스\\ADAM_ A METHOD FOR STOCHASTIC OPTIMIZATION.pdf",
+      "소스/ai_readable/arxiv-1412.6980v9/paper_pdf_pages.md"
+    ],
+    "project_interpretation": [
+      "소스/ai_readable/arxiv-1412.6980v9/SOURCE_CARD.md",
+      "소스/ai_readable/arxiv-1412.6980v9/AI_README.md"
+    ],
+    "secondary": []
+  },
+  "alphaxiv_status": [
+    {
+      "mode": "overview",
+      "status": "not_attempted",
+      "reason": "Local PDF extraction was sufficient for this ingestion."
+    }
+  ],
+  "unsupported_boundary": "Use as the original Adam algorithm and equation source only, not as evidence for optimizer-induced geometry or downstream detector behavior.",
+  "created_at": "2026-05-20T16:15:58+09:00",
+  "updated_at": "2026-05-20T16:15:58+09:00",
+  "notes": "Generated for AI-readable source ingestion. Original PDF preserved in place. MiKTeX pdftotext emitted xref reconstruction warnings while extracting this PDF, but produced page text; verify exact layout against the original PDF."
+}
