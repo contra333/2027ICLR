@@ -1,0 +1,112 @@
+run:
+  project: iclr2027
+  protocol: wrn_350_epoch_sweep
+  seed: 0
+  output_root: ${HOME}/iclr2027_runs
+
+data:
+  id_dataset: cifar10
+  root: ${HOME}/datasets
+  tiny_imagenet_root: ${HOME}/datasets/tiny-imagenet-200/val
+  val_fraction: 0.1
+  split_seed: 0
+  split:
+    type: stratified
+  batch_size: 128
+  eval_batch_size: 256
+  num_workers: 4
+  pin_memory: true
+  normalization: id_dataset
+  image_size: 32
+  train_augmentation:
+    random_crop: 32
+    padding: 4
+    horizontal_flip: true
+  ood_datasets:
+    - name: cifar100
+      dataset: cifar100
+    - name: tiny_imagenet
+      dataset: tiny_imagenet
+      root: ${HOME}/datasets/tiny-imagenet-200/val
+    - name: svhn
+      dataset: svhn
+    - name: mnist
+      dataset: mnist
+
+model:
+  name: standard_wrn_28_10_dropout03
+  num_classes: 10
+  architecture_style: standard
+  spectral_norm:
+    enabled: false
+  mod:
+    enabled: false
+  feature_layer: pre_classifier_flattened_pool_output
+
+optimizer:
+  name: adamw
+  lr: 5.0e-3
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-8
+  weight_decay: 5.0e-4
+  weight_decay_policy: weights_only_no_bias_norm
+
+scheduler:
+  name: multistep
+  milestones: [150, 250]
+  gamma: 0.1
+
+train:
+  epochs: 350
+  loss: cross_entropy
+  save_final: true
+  save_best_val: true
+  best_val_metric: accuracy
+  best_val_mode: max
+  save_every_epochs: 50
+
+eval:
+  cache_splits:
+    - id_train
+    - id_val
+    - id_test
+    - ood_test
+  detectors:
+    logit:
+      - msp
+      - maxlogit
+      - energy_id_score
+      - neg_entropy
+    feature:
+      - mahalanobis
+      - mahalanobis_l2
+      - knn
+      - knn_l2
+      - gmm_ddu_tied
+      - gmm_ddu_diag
+      - gmm_ddu_shrinkage
+    geometry:
+      - within_var
+      - inter_dist_l2
+      - inter_dist_sq
+      - nc0_width_norm
+      - nc0_by_K
+      - nc1
+      - nc2_mean_etf
+      - nc2_mean_cos
+      - nc2_weight_etf
+      - nc2_product_etf
+      - nc3_self_duality
+      - nc3_self_duality_raw
+      - nc3_cos_alignment
+      - nc4_agreement
+      - anisotropy_lambda1_trace
+      - effective_rank
+      - condition_number_clipped
+      - covariance_eigenspectrum
+    nc_hybrid: []
+  knn:
+    k: 50
+  gmm_shrinkage:
+    alpha_grid: [0.0, 0.01, 0.05, 0.1, 0.2, 0.5]
