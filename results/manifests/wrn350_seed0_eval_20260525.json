@@ -1,0 +1,335 @@
+{
+  "run_group": "wrn350_seed0_eval_20260525",
+  "description": "Seed0 final-checkpoint evaluation import and processed comparison for WRN-28-10 dropout0.3 CIFAR-10 models: SGD Nesterov, Adam matched, AdamW matched.",
+  "created_at": "2026-05-25T16:30:00+09:00",
+  "seed_scope": [
+    0
+  ],
+  "averaging_policy": "No averaging across runs or seeds. Processed OOD tables are per run, per detector, per OOD dataset.",
+  "processed_files": [
+    "results/processed/wrn350_seed0_classification_calibration_20260525.csv",
+    "results/processed/wrn350_seed0_ood_metrics_20260525.csv",
+    "results/processed/wrn350_seed0_geometry_scalars_20260525.csv",
+    "results/processed/wrn350_seed0_ood_best_auroc_by_dataset_20260525.csv",
+    "results/processed/wrn350_seed0_eval_summary_20260525.md"
+  ],
+  "runs": [
+    {
+      "run_id": "20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0",
+      "server_name": "hypatia",
+      "server_path": "/home/ghjin/iclr2027_runs/transfer_sgd_seed0_final/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0",
+      "local_import_path": "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0",
+      "git_remote": "https://github.com/contra333/2027ICLR.git",
+      "git_branch": "main",
+      "git_commit": "47b00d1a1630269333f2b7e531aba5465454b496",
+      "code_commit_or_snapshot": "47b00d1a1630269333f2b7e531aba5465454b496",
+      "config_path": "configs/wrn350/cifar10_standard-wrn-28-10-dropout03_sgd_350ep_seed0.yaml",
+      "config_hash": "6e0120f8509cc71305217cbf7a8c632d2dea6ef85eb4d2502b09d38c72b75bdd  configs/wrn350/cifar10_standard-wrn-28-10-dropout03_sgd_350ep_seed0.yaml",
+      "dataset": "cifar10",
+      "ood_datasets": [
+        "cifar100",
+        "tiny_imagenet",
+        "svhn",
+        "mnist"
+      ],
+      "model": "standard_wrn_28_10_dropout03",
+      "optimizer": "sgd_nesterov",
+      "seed": 0,
+      "detectors": {
+        "logit": [
+          "energy_id_score",
+          "maxlogit",
+          "msp",
+          "neg_entropy"
+        ],
+        "feature": [
+          "gmm_ddu_diag",
+          "gmm_ddu_shrinkage",
+          "gmm_ddu_tied",
+          "knn",
+          "knn_l2",
+          "mahalanobis",
+          "mahalanobis_l2"
+        ],
+        "nc_hybrid": []
+      },
+      "geometry_metrics": [
+        "anisotropy_lambda1_trace",
+        "condition_number_clipped",
+        "effective_rank",
+        "inter_dist_l2",
+        "inter_dist_sq",
+        "nc0_by_K",
+        "nc0_width_norm",
+        "nc1",
+        "nc2_mean_cos",
+        "nc2_mean_etf",
+        "nc2_product_etf",
+        "nc2_weight_etf",
+        "nc3_cos_alignment",
+        "nc3_self_duality",
+        "nc3_self_duality_raw",
+        "nc4_agreement",
+        "within_var"
+      ],
+      "run_command": "CUDA_VISIBLE_DEVICES=0 python code/train.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_sgd_350ep_seed0.yaml --out-dir /home/ghjin/iclr2027_runs/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0",
+      "metrics_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_classification.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_calibration.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_ood_logit.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_ood_feature.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_geometry.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_ood_nc_hybrid.json"
+      ],
+      "log_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/eval_final.log"
+      ],
+      "config_snapshot_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/config_snapshot.yaml",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/config.sha256"
+      ],
+      "checkpoint_files": [
+        "/home/ghjin/iclr2027_runs/transfer_sgd_seed0_final/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/checkpoints/checkpoint_final.pt"
+      ],
+      "checkpoint_copy_status": "not_copied; checkpoints remain in server_path",
+      "copied_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_classification.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_calibration.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_ood_logit.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_ood_feature.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_geometry.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/metrics_ood_nc_hybrid.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/training_summary.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/detector_params.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/feature_stats.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/config_snapshot.yaml",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/config.sha256",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/git_commit.txt",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/command.txt",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/split_metadata.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/eval_final.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260519_1954_hypatia_cifar10_standard-wrn-28-10-dropout03_sgd-nesterov_seed0/cache/final/cache_metadata.json"
+      ],
+      "copied_at": "2026-05-25T16:30:00+09:00",
+      "verification_status": "metrics_json_imported; final checkpoint eval outputs present; seed0 only"
+    },
+    {
+      "run_id": "20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0",
+      "server_name": "curie",
+      "server_path": "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0",
+      "local_import_path": "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0",
+      "git_remote": "https://github.com/contra333/2027ICLR.git",
+      "git_branch": "main",
+      "git_commit": "2550047b701fbb0dd12be86432e2a06bae13292a",
+      "code_commit_or_snapshot": "2550047b701fbb0dd12be86432e2a06bae13292a",
+      "config_path": "configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adam_matched-lr5e-3-wd5e-4_350ep_seed0.yaml",
+      "config_hash": "d4adbab7e83d5ce2c9fbe0863778fb7d65c06d35bfcf2063cd399287efb5ffa9  configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adam_matched-lr5e-3-wd5e-4_350ep_seed0.yaml",
+      "dataset": "cifar10",
+      "ood_datasets": [
+        "cifar100",
+        "tiny_imagenet",
+        "svhn",
+        "mnist"
+      ],
+      "model": "standard_wrn_28_10_dropout03",
+      "optimizer": "adam_matched",
+      "seed": 0,
+      "detectors": {
+        "logit": [
+          "energy_id_score",
+          "maxlogit",
+          "msp",
+          "neg_entropy"
+        ],
+        "feature": [
+          "gmm_ddu_diag",
+          "gmm_ddu_shrinkage",
+          "gmm_ddu_tied",
+          "knn",
+          "knn_l2",
+          "mahalanobis",
+          "mahalanobis_l2"
+        ],
+        "nc_hybrid": []
+      },
+      "geometry_metrics": [
+        "anisotropy_lambda1_trace",
+        "condition_number_clipped",
+        "effective_rank",
+        "inter_dist_l2",
+        "inter_dist_sq",
+        "nc0_by_K",
+        "nc0_width_norm",
+        "nc1",
+        "nc2_mean_cos",
+        "nc2_mean_etf",
+        "nc2_product_etf",
+        "nc2_weight_etf",
+        "nc3_cos_alignment",
+        "nc3_self_duality",
+        "nc3_self_duality_raw",
+        "nc4_agreement",
+        "within_var"
+      ],
+      "run_command": "CUDA_VISIBLE_DEVICES=2 python code/train.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adam_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --out-dir /home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0\nCUDA_VISIBLE_DEVICES=2 python code/extract_cache.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adam_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --run-dir /home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0 --checkpoint-tag final && CUDA_VISIBLE_DEVICES=2 python code/eval_posthoc.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adam_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --run-dir /home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0 --checkpoint-tag final && python code/tests/smoke_checks.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adam_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --run-dir /home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0 --check run-dir",
+      "metrics_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_classification.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_calibration.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_ood_logit.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_ood_feature.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_geometry.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_ood_nc_hybrid.json"
+      ],
+      "log_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/eval_final.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/eval_final_resume_20260521_1100_gpu2.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/eval_final_resume_20260521_1104_gpu2.log"
+      ],
+      "config_snapshot_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/config_snapshot.yaml",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/config.sha256"
+      ],
+      "checkpoint_files": [
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_best_val.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0050.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0100.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0150.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0200.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0250.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0300.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_epoch_0350.pt",
+        "/home/ghjin/iclr2027_runs/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/checkpoints/checkpoint_final.pt"
+      ],
+      "checkpoint_copy_status": "not_copied; checkpoints remain in server_path",
+      "copied_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_classification.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_calibration.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_ood_logit.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_ood_feature.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_geometry.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/metrics_ood_nc_hybrid.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/training_summary.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/detector_params.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/feature_stats.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/config_snapshot.yaml",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/config.sha256",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/git_commit.txt",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/command.txt",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/split_metadata.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/eval_final.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/eval_final_resume_20260521_1100_gpu2.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/eval_final_resume_20260521_1104_gpu2.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260520_2209_curie_cifar10_standard-wrn-28-10-dropout03_adam_matched_seed0/cache/final/cache_metadata.json"
+      ],
+      "copied_at": "2026-05-25T16:30:00+09:00",
+      "verification_status": "metrics_json_imported; final checkpoint eval outputs present; seed0 only"
+    },
+    {
+      "run_id": "20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0",
+      "server_name": "curie",
+      "server_path": "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0",
+      "local_import_path": "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0",
+      "git_remote": "https://github.com/contra333/2027ICLR.git",
+      "git_branch": "main",
+      "git_commit": "2550047b701fbb0dd12be86432e2a06bae13292a",
+      "code_commit_or_snapshot": "2550047b701fbb0dd12be86432e2a06bae13292a",
+      "config_path": "configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_matched-lr5e-3-wd5e-4_350ep_seed0.yaml",
+      "config_hash": "619b71799735a70828724d16efa80f905ba0db1712f4727f9362093b01cb18c9  configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_matched-lr5e-3-wd5e-4_350ep_seed0.yaml",
+      "dataset": "cifar10",
+      "ood_datasets": [
+        "cifar100",
+        "tiny_imagenet",
+        "svhn",
+        "mnist"
+      ],
+      "model": "standard_wrn_28_10_dropout03",
+      "optimizer": "adamw_matched",
+      "seed": 0,
+      "detectors": {
+        "logit": [
+          "energy_id_score",
+          "maxlogit",
+          "msp",
+          "neg_entropy"
+        ],
+        "feature": [
+          "gmm_ddu_diag",
+          "gmm_ddu_shrinkage",
+          "gmm_ddu_tied",
+          "knn",
+          "knn_l2",
+          "mahalanobis",
+          "mahalanobis_l2"
+        ],
+        "nc_hybrid": []
+      },
+      "geometry_metrics": [
+        "anisotropy_lambda1_trace",
+        "condition_number_clipped",
+        "effective_rank",
+        "inter_dist_l2",
+        "inter_dist_sq",
+        "nc0_by_K",
+        "nc0_width_norm",
+        "nc1",
+        "nc2_mean_cos",
+        "nc2_mean_etf",
+        "nc2_product_etf",
+        "nc2_weight_etf",
+        "nc3_cos_alignment",
+        "nc3_self_duality",
+        "nc3_self_duality_raw",
+        "nc4_agreement",
+        "within_var"
+      ],
+      "run_command": "CUDA_VISIBLE_DEVICES=2 python code/train.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --out-dir /home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0\nCUDA_VISIBLE_DEVICES=2 python code/extract_cache.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --run-dir /home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0 --checkpoint-tag final && CUDA_VISIBLE_DEVICES=2 python code/eval_posthoc.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --run-dir /home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0 --checkpoint-tag final && python code/tests/smoke_checks.py --config configs/wrn350/cifar10_standard-wrn-28-10-dropout03_adamw_matched-lr5e-3-wd5e-4_350ep_seed0.yaml --run-dir /home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0 --check run-dir",
+      "metrics_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_classification.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_calibration.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_ood_logit.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_ood_feature.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_geometry.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_ood_nc_hybrid.json"
+      ],
+      "log_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/eval_final.log"
+      ],
+      "config_snapshot_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/config_snapshot.yaml",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/config.sha256"
+      ],
+      "checkpoint_files": [
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_best_val.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0050.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0100.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0150.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0200.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0250.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0300.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_epoch_0350.pt",
+        "/home/ghjin/iclr2027_runs/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/checkpoints/checkpoint_final.pt"
+      ],
+      "checkpoint_copy_status": "not_copied; checkpoints remain in server_path",
+      "copied_files": [
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_classification.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_calibration.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_ood_logit.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_ood_feature.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_geometry.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/metrics_ood_nc_hybrid.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/training_summary.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/detector_params.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/feature_stats.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/config_snapshot.yaml",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/config.sha256",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/git_commit.txt",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/command.txt",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/split_metadata.json",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/eval_final.log",
+        "results/raw/wrn350_seed0_eval_20260525/20260521_1104_curie_cifar10_standard-wrn-28-10-dropout03_adamw_matched_seed0/cache/final/cache_metadata.json"
+      ],
+      "copied_at": "2026-05-25T16:30:00+09:00",
+      "verification_status": "metrics_json_imported; final checkpoint eval outputs present; seed0 only"
+    }
+  ]
+}
