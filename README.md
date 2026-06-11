@@ -23,6 +23,16 @@ How do optimizer choice and weight-decay coupling change Neural Collapse-like ge
 - `ops/`: multi-server Git, server run, and result-sync workflow notes.
 - `.agents/skills/`: reusable AI workflows for this project.
 
+## Current result context
+
+As of 2026-06-01 KST, the main local WRN result context is:
+
+- `results/wrn350_seed0_eval_bundle_20260525/`: seed0 final-checkpoint anchor comparison for CIFAR-10 WRN-28-10 dropout0.3 across SGD Nesterov, Adam matched, and AdamW matched. This is seed0 only.
+- `results/WRN_seed0_350eps_girdsearch_0531/` plus `results/processed/WRN_seed0_350eps_girdsearch_0531_*`: seed0 15-run 350-epoch diagnostic grid-search across SGD/Adam/AdamW LR/WD candidates.
+- `reports/WRN_seed0_350eps_girdsearch_0531_notion_working_page_ko.md` and `reports/WRN_seed0_350eps_girdsearch_0531_professor_report_skeleton_ko.md`: local context/report drafts mirroring the 0531 Notion analysis.
+
+These WRN results are diagnostic, not seed-averaged paper-level conclusions. Hyperparameter selection is ID-validation based; OOD and geometry metrics are response-surface evidence.
+
 ## Operating model
 
 Real training is expected to run on GPU servers such as `101`, `175`, and `138`. This local repo is for planning, source grounding, config/code preparation, result import, analysis, and reporting.
