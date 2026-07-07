@@ -200,21 +200,34 @@ def check_registries(cfg):
         raise AssertionError("unknown detector name did not raise")
 
 
-def _final_cache_dir(run_dir: Path) -> Path:
+def _checkpoint_filename_from_tag(tag: str) -> str:
+    if tag.endswith(".pt"):
+        return tag
+    if tag.startswith("checkpoint_"):
+        return f"{tag}.pt"
+    return f"checkpoint_{tag}.pt"
+
+
+def _cache_dir_for_tag(run_dir: Path, checkpoint_tag: str | None) -> Path:
+    if checkpoint_tag:
+        return run_dir / "cache" / checkpoint_tag
     tagged = run_dir / "cache" / "final"
     if tagged.exists():
         return tagged
     return run_dir / "cache"
 
 
-def check_run_dir(run_dir: Path):
-    checkpoint = run_dir / "checkpoints" / "checkpoint_final.pt"
+def check_run_dir(run_dir: Path, eval_dir: Path | None = None, checkpoint_tag: str | None = None):
+    tag = checkpoint_tag or "final"
+    checkpoint = run_dir / "checkpoints" / _checkpoint_filename_from_tag(tag)
+    if tag == "final" and not checkpoint.exists():
+        checkpoint = run_dir / "checkpoint_final.pt"
     assert checkpoint.exists(), f"missing {checkpoint}"
     for rel in ["train_metrics.jsonl", "val_metrics.jsonl"]:
         path = run_dir / rel
         assert path.exists(), f"missing {path}"
 
-    cache_dir = _final_cache_dir(run_dir)
+    cache_dir = _cache_dir_for_tag(run_dir, checkpoint_tag)
     cache_metadata_path = cache_dir / "cache_metadata.json"
     required_cache = ["id_train.pt", "id_val.pt", "id_test.pt", "classifier.pt", "cache_metadata.json"]
     if cache_metadata_path.exists():
@@ -226,12 +239,13 @@ def check_run_dir(run_dir: Path):
         path = cache_dir / filename
         assert path.exists(), f"missing {path}"
 
+    metrics_dir = eval_dir or run_dir
     for filename in EXPECTED_EVAL_JSON:
-        path = run_dir / filename
+        path = metrics_dir / filename
         assert path.exists(), f"missing {path}"
         with path.open("r", encoding="utf-8") as handle:
             json.load(handle)
-    metrics_geometry = json.loads((run_dir / "metrics_geometry.json").read_text(encoding="utf-8"))
+    metrics_geometry = json.loads((metrics_dir / "metrics_geometry.json").read_text(encoding="utf-8"))
     emitted = set(metrics_geometry["id_train"].keys())
     forbidden = {"nc0", "nc3", "nc4", "inter_dist"}
     assert not emitted.intersection(forbidden), emitted.intersection(forbidden)
@@ -251,6 +265,8 @@ def main():
     parser = argparse.ArgumentParser(description="M1 smoke checks")
     parser.add_argument("--config", required=True)
     parser.add_argument("--run-dir")
+    parser.add_argument("--eval-dir", help="Metric JSON directory for checkpoint-specific run-dir checks")
+    parser.add_argument("--checkpoint-tag", help="Checkpoint/cache tag for checkpoint-specific run-dir checks")
     parser.add_argument(
         "--check",
         choices=[
@@ -283,7 +299,8 @@ def main():
     if args.check in ("run-dir", "all"):
         if not args.run_dir:
             raise SystemExit("--run-dir is required for run-dir/all checks")
-        check_run_dir(Path(args.run_dir))
+        eval_dir = Path(args.eval_dir) if args.eval_dir else None
+        check_run_dir(Path(args.run_dir), eval_dir=eval_dir, checkpoint_tag=args.checkpoint_tag)
 
 
 if __name__ == "__main__":

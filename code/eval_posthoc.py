@@ -50,6 +50,12 @@ DEFAULT_FEATURE_DETECTORS = [
     "gmm_ddu_diag",
     "gmm_ddu_shrinkage",
 ]
+DEFAULT_NC_HYBRID_DETECTORS = [
+    "ncc_accuracy",
+    "ncc_distance",
+    "nc_prototype_cosine",
+    "vim_id_score",
+]
 DEFAULT_GEOMETRY_METRICS = [
     "within_var",
     "inter_dist_l2",
@@ -397,12 +403,12 @@ def _run_feature_detectors(cfg: dict, caches: dict[str, dict], detector_params: 
 
 
 def _run_nc_hybrid_detectors(cfg: dict, caches: dict[str, dict], detector_params: dict) -> dict:
-    requested = _requested_detectors(cfg, "nc_hybrid", [])
+    requested = _requested_detectors(cfg, "nc_hybrid", DEFAULT_NC_HYBRID_DETECTORS)
     _validate_names(requested, NC_HYBRID_DETECTOR_REGISTRY, "nc_hybrid")
     if not requested:
         return {
             "implemented_detectors": [],
-            "note": "NC/prototype/hybrid detector scores were not requested in eval.detectors.nc_hybrid.",
+            "note": "NC/prototype/hybrid detector scores were disabled by eval.detectors.nc_hybrid.",
         }
 
     x_train = caches["id_train"]["features"].float()
@@ -486,11 +492,16 @@ def main() -> None:
     parser.add_argument("--cache-dir")
     parser.add_argument("--cache-subdir", help="Backward-compatible alias for cache/<subdir>")
     parser.add_argument("--checkpoint-tag", help="Cache tag such as final, best_val, or epoch_0050")
+    parser.add_argument("--eval-dir", help="Output directory for metric JSON files; default is --run-dir")
     args = parser.parse_args()
 
     cfg = load_config(args.config)
     run_dir = Path(args.run_dir)
     cache_dir = _resolve_cache_dir(run_dir, args.cache_dir, args.checkpoint_tag, args.cache_subdir)
+    eval_dir = Path(args.eval_dir).expanduser() if args.eval_dir else run_dir
+    if not eval_dir.is_absolute():
+        eval_dir = run_dir / eval_dir
+    eval_dir.mkdir(parents=True, exist_ok=True)
     caches = _load_all_caches(cache_dir)
     cache_metadata = _load_cache_metadata(cache_dir)
     classifier = torch.load(cache_dir / "classifier.pt", map_location="cpu")
@@ -512,6 +523,9 @@ def main() -> None:
             "checkpoint": cache_metadata.get("checkpoint"),
             "checkpoint_epoch": cache_metadata.get("checkpoint_epoch"),
             "metadata_present": bool(cache_metadata),
+        },
+        "output": {
+            "path": str(eval_dir),
         },
     }
 
@@ -576,14 +590,14 @@ def main() -> None:
         },
     }
 
-    write_json(run_dir / "metrics_classification.json", classification)
-    write_json(run_dir / "metrics_calibration.json", calibration)
-    write_json(run_dir / "metrics_ood_logit.json", logit_ood)
-    write_json(run_dir / "metrics_ood_feature.json", feature_ood)
-    write_json(run_dir / "metrics_ood_nc_hybrid.json", nc_hybrid)
-    write_json(run_dir / "metrics_geometry.json", geometry)
-    write_json(run_dir / "detector_params.json", detector_params)
-    write_json(run_dir / "feature_stats.json", feature_stats_by_split(caches))
+    write_json(eval_dir / "metrics_classification.json", classification)
+    write_json(eval_dir / "metrics_calibration.json", calibration)
+    write_json(eval_dir / "metrics_ood_logit.json", logit_ood)
+    write_json(eval_dir / "metrics_ood_feature.json", feature_ood)
+    write_json(eval_dir / "metrics_ood_nc_hybrid.json", nc_hybrid)
+    write_json(eval_dir / "metrics_geometry.json", geometry)
+    write_json(eval_dir / "detector_params.json", detector_params)
+    write_json(eval_dir / "feature_stats.json", feature_stats_by_split(caches))
 
 
 if __name__ == "__main__":

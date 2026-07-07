@@ -118,6 +118,28 @@ def _rel(path: Path, base: Path) -> str:
         return str(path)
 
 
+def _parse_save_epochs(train_cfg: dict[str, Any], max_epochs: int) -> set[int]:
+    raw = train_cfg.get("save_epochs", [])
+    if raw in (None, False):
+        return set()
+    if isinstance(raw, int):
+        values = [raw]
+    elif isinstance(raw, str):
+        values = [part.strip() for part in raw.split(",") if part.strip()]
+    else:
+        values = list(raw)
+
+    save_epochs = set()
+    for value in values:
+        epoch = int(value)
+        if epoch < 1 or epoch > max_epochs:
+            raise ValueError(
+                f"train.save_epochs contains {epoch}, expected values in [1, {max_epochs}]"
+            )
+        save_epochs.add(epoch)
+    return save_epochs
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Milestone 1A smoke trainer")
     parser.add_argument("--config", required=True)
@@ -144,6 +166,7 @@ def main() -> None:
     save_final = bool(train_cfg.get("save_final", True))
     save_best_val = bool(train_cfg.get("save_best_val", False))
     save_every_epochs = int(train_cfg.get("save_every_epochs", 0) or 0)
+    save_epochs = _parse_save_epochs(train_cfg, epochs)
     best_val_metric = str(train_cfg.get("best_val_metric", "accuracy"))
     best_val_mode = str(train_cfg.get("best_val_mode", "max"))
 
@@ -173,7 +196,9 @@ def main() -> None:
         if scheduler is not None:
             scheduler.step()
 
-        if save_every_epochs > 0 and epoch % save_every_epochs == 0:
+        should_save_periodic = save_every_epochs > 0 and epoch % save_every_epochs == 0
+        should_save_explicit = epoch in save_epochs
+        if should_save_periodic or should_save_explicit:
             path = _save_checkpoint(
                 checkpoint_dir / f"checkpoint_epoch_{epoch:04d}.pt",
                 model,
@@ -238,6 +263,7 @@ def main() -> None:
         "checkpoint_dir": "checkpoints",
         "checkpoint_files": sorted(set(checkpoint_files)),
         "save_every_epochs": save_every_epochs,
+        "save_epochs": sorted(save_epochs),
         "save_best_val": save_best_val,
         "best_val_metric": best_val_metric if save_best_val else None,
         "best_val_mode": best_val_mode if save_best_val else None,
